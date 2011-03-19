@@ -1,0 +1,31 @@
+@import "constants.less";
+@import "typography.less";
+
+#border {
+	.borderSolid (right) {
+		border-top-style: none;
+		border-bottom-style: none;
+		border-left-style: none;
+	}
+	.borderSolid (left) {
+		border-top-style: none;
+		border-right-style: none;
+		border-bottom-style: none;
+	}
+}
+
+#color {
+	.text (@brightnessPreset) {
+		color: hsl(0, 0%, @brightnessPreset);
+	}
+}
+
+#font {
+	.size (@pixels, @parent: 16px) {
+		font-size: e(%('%s%s', e(@pixels/@parent), em));
+	}
+}
+
+.background-image (@filename) {
+	background-image: e(%('url(%s%s)', @resource_imgDir, @filename));
+}

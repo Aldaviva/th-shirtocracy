@@ -1,0 +1,54 @@
+._font-face-url (@filename, @extension: 'otf', @format: 'opentype') {
+	src: e(%('url("%s%s.%s") format("%s")', @resource_fontDir, @filename, @extension, @format));
+}
+
+._font-face (@family, @filename, @weight, @style) {
+	font-family: @family;
+	font-weight: @weight;
+	font-style: @style;
+	._font-face-url(@filename, 'otf', 'opentype');
+}
+
+.univers (@filenameSuffix: '', @weight: normal, @style: normal) {
+	@baseFilename: 'UniversLTStd';
+	@family: 'Univers';
+	
+	._font-face(@family, %('%s%s', @baseFilename, @filenameSuffix), @weight, @style);
+}
+
+.universCn (@filenameSuffix: '', @weight: normal, @style: normal) {
+	@baseFilename: 'UniversLTStd';
+	@family: 'Univers Condensed';
+	
+	._font-face(@family, %('%s%s', @baseFilename, @filenameSuffix), @weight, @style);
+}
+
+@font-face {
+	/* 57 Condensed */
+	.universCn('-Cn');
+}
+
+@font-face {
+	/* 67 Bold Condensed */
+	.universCn('-BoldCn', bold);
+}
+
+@font-face {
+	/* 57 Condensed Oblique*/
+	.universCn('-CnObl', normal, italic);
+}
+
+@font-face {
+	/* 45 Light Oblique */
+	.univers('-LightObl', lighter, italic);
+}
+
+@font-face {
+	/* 45 Light */
+	.univers('-Light', lighter);
+}
+
+@font-face {
+	/* 47 Light Condensed Oblique */
+	.universCn('-LightCnObl', lighter, italic);
+}

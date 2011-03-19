@@ -1,0 +1,94 @@
+@import "common.less";
+
+body {
+	background: hsl(0, 0%, @colors_page_background) none repeat-x 0 0;
+	.background-image("background_top_shadow.png");
+	position: absolute;
+	left: 0;
+	right: 0;
+	font: 1em "Univers";
+}
+
+/* Pillar layouts */
+.pillar {
+	border: 2px solid hsl(0, 0%, @colors_pillar_border);
+	#color > .text(@colors_text_light);
+	background-color: hsl(0, 0%, @colors_pillar_background);
+	
+	.innerBorder {
+		border: 1px solid white;
+	}
+	
+	
+	&.left, &.right {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		height: 100%;
+		width: @size_pillar_width;
+		
+		.innerBorder {
+			height: 100%;
+		}
+	}
+	&.right {
+		right: 0;
+		
+		#border > .borderSolid(left);
+		.innerBorder {
+			#border > .borderSolid(left);
+		}	
+	}
+	&.left {
+		left: 0;
+		
+		#border > .borderSolid(right);
+		.innerBorder {
+			#border > .borderSolid(right);	
+		}
+	}
+}
+
+.main {
+	margin: 0 (@size_pillar_width + 20px);	
+}
+
+header{
+	display: block;
+	padding-top: 25px;
+	
+	h1 {
+		text-indent: -9999px;
+		width: 100px;
+		height: 85px;
+		background-repeat: no-repeat;
+		.background-image ("leftpillar_title.png");
+		margin: 0 auto;
+	}
+}
+
+.navigation {
+	padding: 10px;
+	font-family: "Univers";
+	line-height: 1.5em;
+	#font>.size(@font_size_navigation_text, 16px);
+	
+	h3 {
+		#color > .text(@colors_text_medium);
+		text-transform: uppercase;
+		margin-left: -1 * @size_nav_linkLeftGap;
+		font-family: "Univers Condensed";
+		font-weight: bold;
+		#font>.size(@font_size_navigation_heading, @font_size_navigation_text);
+		margin-bottom: 1px;
+	}
+	
+	> div {
+		margin-left: @size_nav_linkLeftGap;
+		margin-bottom: @size_nav_sectionBottomGap;
+	}
+	
+	a {
+		display: block;
+	}
+}

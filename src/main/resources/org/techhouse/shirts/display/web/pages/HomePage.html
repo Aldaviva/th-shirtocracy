@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+	<head>
+		<meta charset="UTF-8">
+	</head>
+	
+	<body>
+		<wicket:extend>
+			<header>Status</header>
+			<p><span wicket:id="memberCount"></span> members have logged in.</p>
+			<p><span wicket:id="designCount"></span> designs to vote for.</p>
+			
+			<p>You are a member of the following roles: <span wicket:id="roles"></span>.</p>
+			
+			<button wicket:id="logout" style="position: absolute; top: 1em; right: 1em;">Log out</button>
+		</wicket:extend>
+	</body>
+</html>

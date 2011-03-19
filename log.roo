@@ -1,0 +1,42 @@
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-03-17 19:12:06
+project --topLevelPackage org.techhouse.shirts --projectName Shirtocracy --java 6
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log closed at 2011-03-17 19:12:07
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-03-17 19:12:43
+persistence setup --database POSTGRES --provider HIBERNATE 
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log closed at 2011-03-17 19:21:24
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-03-17 19:52:14
+// [failed] entity --class org.techhouse.shirts.data.entities.Member
+entity --class org.techhouse.shirts.data.entities.Member --permitReservedWords 
+field string --fieldName username
+field string --fieldName username --notNull --unique
+// [failed] field enum --fieldName role --type org.techhouse.shirts.data.enums.UserRole --notNull --enumType STRING
+field enum --fieldName role --type org.techhouse.shirts.data.enums.UserRole --notNull --enumType STRING --permitReservedWords 
+entity --class ~.Design --identifierField name
+entity --class org.techhouse.shirts.data.entities.Design --identifierField name
+field set --fieldName members --type Member --cardinality MANY_TO_MANY --fetch LAZY
+entity --class org.techhouse.shirts.data.entities.Vote
+// [failed] field reference --fieldName member --type Member --cardinality MANY_TO_ONE 
+field reference --fieldName member --type Member --cardinality MANY_TO_ONE --permitReservedWords 
+// [failed] controller class Vote
+controller all --package org.techhouse.shirts.display.web
+// [failed] finder list --class org.techhouse.data.entities.Member
+// [failed] finder list 
+// [failed] finder list --class org.techhouse.shirts.data.entites.Member
+finder list --class org.techhouse.shirts.data.entities.Member
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log closed at 2011-03-18 01:23:11
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-03-18 21:19:49
+// [failed] finder list --class org.techhouse.shirts.data.entites.Design
+finder list --class org.techhouse.shirts.data.entities.Design
+finder list --class org.techhouse.shirts.data.entities.Vote
+finder add --finderName findVotesByDesign
+finder list
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log closed at 2011-03-18 21:40:50
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-03-18 23:21:39
+field string --class org.techhouse.shirts.data.entities.Design --fieldName artist
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log closed at 2011-03-18 23:54:25
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-03-19 02:35:50
+// [failed] field number --class org.techhouse.shirts.data.entities.Design --fieldName year --type java.lang.Integer --digitsInteger 4
+// [failed] field number --class org.techhouse.shirts.data.entities.Design --fieldName year --type java.lang.Integer --digitsInteger 4 --digitsFraction 0
+field number --class org.techhouse.shirts.data.entities.Design --fieldName year --type java.lang.Integer --digitsInteger 4 --digitsFraction 0 --permitReservedWords 
+// [failed] field number --class org.techhouse.shirts.data.entities.Design --fieldName year --type java.lang.Integer --digitsInteger 4 --digitsFraction 0 --permitReservedWords --max 2011 --min 1995
+field number --class org.techhouse.shirts.data.entities.Design --fieldName year --type java.lang.Integer --digitsInteger 4 --digitsFraction 0 --permitReservedWords --max 2011 --min 1995
