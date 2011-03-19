@@ -40,3 +40,4 @@ field string --class org.techhouse.shirts.data.entities.Design --fieldName artis
 field number --class org.techhouse.shirts.data.entities.Design --fieldName year --type java.lang.Integer --digitsInteger 4 --digitsFraction 0 --permitReservedWords 
 // [failed] field number --class org.techhouse.shirts.data.entities.Design --fieldName year --type java.lang.Integer --digitsInteger 4 --digitsFraction 0 --permitReservedWords --max 2011 --min 1995
 field number --class org.techhouse.shirts.data.entities.Design --fieldName year --type java.lang.Integer --digitsInteger 4 --digitsFraction 0 --permitReservedWords --max 2011 --min 1995
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log closed at 2011-03-19 05:36:19
