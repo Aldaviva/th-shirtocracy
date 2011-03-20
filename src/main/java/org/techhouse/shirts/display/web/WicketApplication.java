@@ -15,7 +15,6 @@ import org.apache.wicket.request.RequestParameters;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.techhouse.shirts.display.web.pages.BallotPage;
 import org.techhouse.shirts.display.web.pages.LoginPage;
-import org.techhouse.shirts.display.web.pages.StatisticsPage;
 import org.techhouse.shirts.service.security.WicketSession;
 
 public class WicketApplication extends WebApplication {

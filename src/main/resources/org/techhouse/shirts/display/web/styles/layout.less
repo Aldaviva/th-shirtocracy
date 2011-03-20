@@ -1,47 +1,57 @@
 @import "utilities.less";
 
-* {
-	margin: 0;
-}
-html, body {
-	height: 100%;
+body {
+	background: hsl(0, 0%, @colors_page_background) none repeat-x 0 0;
+	font: 1em "Univers";
+	
 }
 
 body {
-	background: hsl(0, 0%, @colors_page_background) none repeat-x 0 0;
-	//.background-image("layout/background_top_shadow.png");
-	//position: absolute;
-	//left: 0;
-	//right: 0;
-	//min-height: 100%;
-	font: 1em "Univers";
+	margin: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	bottom: 0;
+	//border: 4px solid purple;
 }
 
-.clear {
-	clear: both !important;
-	float: none !important;
+.table {
+	display: table;
+	table-layout: fixed;
+	//border: 1px solid green;
+	height: 100%;
+	width: 100%;
 }
 
-#content {
-	min-height: 100%;
-	height: auto !important;
+.tableRow {
+	display: table-row;	
+}
+	
+.tableCell {
+	display: table-cell;
+	vertical-align: top;
+	height: 100%;
+}
+
+.pillar {
+	//border: 1px solid blue;
+	//background: blue;
+}
+
+.main {
+	//border: 1px solid red;
+	//background: red;
 	height: 100%;
 }
 
 .main {
-	margin: 0 @size_pillar_width + @size_pillar_innerBorderWidth + @size_pillar_outerBorderWidth;
+	//margin: 0 @size_pillar_width + @size_pillar_innerBorderWidth + @size_pillar_outerBorderWidth;
 	box-shadow: inset 0 0 43px hsla(0, 0%, 0%, 0.15);
 	-moz-box-shadow: inset 0 0 43px hsla(0, 0%, 0%, 0.15);
-	min-height: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	//bottom: 0;
 	
 	> div {
-		padding: @size_main_gap;	
-	}
+		padding: @size_main_gap;
+	}	
 }
 
 
@@ -50,25 +60,21 @@ body {
 	border: @size_pillar_outerBorderWidth solid @colors_pillar_border;
 	color: @colors_text_light;
 	background-color: @colors_pillar_background;
-	position: absolute;
-	top: 0;
-	//bottom: 0;
-	min-height: 100%;
 	width: @size_pillar_width + @size_pillar_innerBorderWidth;
 	
-	.innerBorder {
+	.border {
 		border: @size_pillar_innerBorderWidth solid white;
 		height: 100%;
 	}
 	
-	.innerContent {
+	.pillarContent {
 		position: absolute;
 		width: @size_pillar_width - (2 * @size_pillar_innerContentPadding);
 		padding: @size_pillar_innerContentPadding;
 	}
 	
 	.vignette {
-		position: absolute;
+		position: fixed;
 		width: 268px;
 		height: 268px;
 		.background-image("layout/vignette.png");
@@ -87,7 +93,7 @@ body {
 		right: 0;
 		
 		#border > .borderSolid(left);
-		.innerBorder {
+		.border {
 			#border > .borderSolid(left);
 		}
 		
@@ -106,7 +112,7 @@ body {
 		left: 0;
 		
 		#border > .borderSolid(right);
-		.innerBorder {
+		.border {
 			#border > .borderSolid(right);	
 		}
 		
