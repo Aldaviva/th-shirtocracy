@@ -12,54 +12,59 @@
 	
 	<body>
 		<wicket:extend>
-			<div class="pillar left">
-				<div class="innerBorder">
-					<div class="vignette top"></div>
-					<div class="vignette bottom"></div>
-					<div class="innerContent">
-						<header>
-							<h1>Technology House Apparel</h1>
-						</header>
-					</div>
-				</div>
-			</div>
-			
-			<div class="main" wicket:id="main">
-				<wicket:child />
-			</div>
-			
-			<div class="pillar right">
-				<div class="innerBorder">
-					<div class="vignette top"></div>
-					<div class="vignette bottom"></div>
-					<div class="navigation innerContent">
-						<div>
-							<h3 wicket:id="username"></h3>
-							<a><wicket:message key="nav.user.logout" /></a>
-						</div>
-						<div>
-							<h3><wicket:message key="nav.deadline.title" /></h3>
-							3/22/2011<br />
-							12:00:00 AM EDT<br />
-							4d, 6h, 30m
-						</div>
-						<div wicket:id="admin">
-							<h3><wicket:message key="nav.admin.title" /></h3>
-							<a><wicket:message key="nav.admin.designAdd" /></a>
-							<a><wicket:message key="nav.admin.designEdit" /></a>
-							<!--<a><wicket:message key="nav.admin.designDelete"></a>-->
-						</div>
-						<div wicket:id="results">
-							<h3><wicket:message key="nav.results.title" /></h3>
-							<a><wicket:message key="nav.results.stats" /></a>
-						</div>
-						<div>
-							<h3><wicket:message key="nav.help.title" /></h3>
-							<a><wicket:message key="nav.help.tutorial" /></a>
-							<a><wicket:message key="nav.help.support" /></a>
+			<div id="content">
+				<div class="pillar left">
+					<div class="innerBorder">
+						<div class="vignette top"></div>
+						<div class="vignette bottom"></div>
+						<div class="innerContent">
+							<header>
+								<h1>Technology House Apparel</h1>
+							</header>
 						</div>
 					</div>
 				</div>
+				
+				<div class="main" wicket:id="main">
+					<div>
+						<wicket:child />
+					</div>
+				</div>
+				
+				<div class="pillar right">
+					<div class="innerBorder">
+						<div class="vignette top"></div>
+						<div class="vignette bottom"></div>
+						<div class="navigation innerContent">
+							<div>
+								<h3 wicket:id="username"></h3>
+								<a><wicket:message key="nav.user.logout" /></a>
+							</div>
+							<div>
+								<h3><wicket:message key="nav.deadline.title" /></h3>
+								3/22/2011<br />
+								12:00:00 AM EDT<br />
+								4d, 6h, 30m
+							</div>
+							<div wicket:id="admin">
+								<h3><wicket:message key="nav.admin.title" /></h3>
+								<a><wicket:message key="nav.admin.designAdd" /></a>
+								<a><wicket:message key="nav.admin.designEdit" /></a>
+								<!--<a><wicket:message key="nav.admin.designDelete"></a>-->
+							</div>
+							<div wicket:id="results">
+								<h3><wicket:message key="nav.results.title" /></h3>
+								<a><wicket:message key="nav.results.stats" /></a>
+							</div>
+							<div>
+								<h3><wicket:message key="nav.help.title" /></h3>
+								<a><wicket:message key="nav.help.tutorial" /></a>
+								<a><wicket:message key="nav.help.support" /></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="clear"></div>
 			</div>
 		</wicket:extend>
 	</body>

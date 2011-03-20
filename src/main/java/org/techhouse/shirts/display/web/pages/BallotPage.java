@@ -2,8 +2,11 @@ package org.techhouse.shirts.display.web.pages;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
@@ -19,33 +22,59 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.techhouse.shirts.data.entities.Design;
 import org.techhouse.shirts.data.entities.Member;
 import org.techhouse.shirts.display.web.behaviors.SetCssClassToWicketId;
 import org.techhouse.shirts.display.web.components.VoteButton;
+import org.techhouse.shirts.service.VoteService;
 import org.techhouse.shirts.service.security.WicketSession;
 
-public class BallotPage extends BasePage {
+public class BallotPage extends BasePage /* implements AuthenticatedWebPage */ {
 
-	final IModel<List<Design>> designsModel = new LoadableDetachableModel<List<Design>>() {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		protected List<Design> load() {
-			return Design.findAllDesigns();
-		}
-	}; 
+	@SpringBean
+	private VoteService voteService;
+	
+	private final Member member;
+	
+	private final HashMap<Design, Boolean> designToChoiceMap;
+	
+	private final IModel<List<Design>> designsModel;
 	
 	public BallotPage() {
 		super();
 		
+		member = //WicketSession.get().getMember();
+			Member.findMember("ben");
 		
+		designsModel = new LoadableDetachableModel<List<Design>>() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			protected List<Design> load() {
+				return Design.findAllDesigns();
+			}
+		};
 		
-		final Form<Member> ballotForm = new Form<Member>("ballotForm", Model.of(WicketSession.get().getMember())) {
+		designToChoiceMap = setUpDesignToChoiceMap(member);
+		
+		final Form<Member> ballotForm = new Form<Member>("ballotForm", Model.of(member)) {
 
 			private static final long serialVersionUID = 1L;
+
+			@Override
+			protected void onSubmit() {
+				Collection<Design> selectedDesigns = new ArrayList<Design>(designToChoiceMap.size());
+				for (Entry<Design, Boolean> choice : designToChoiceMap.entrySet()) {
+					if(choice.getValue()){
+						selectedDesigns.add(choice.getKey());
+					}
+				}
+				voteService.submitBallot(getModelObject(), selectedDesigns);
+			}
 			
 		};
+		add(ballotForm);
 		
 		ballotForm.add(new ListView<Design>("designListView", designsModel) {
 
@@ -72,9 +101,45 @@ public class BallotPage extends BasePage {
 					}
 				}).add(new SetCssClassToWicketId()));
 				
-				item.add(new VoteButton("voteButton", item.getModel()).add(new SetCssClassToWicketId()));
+				item.add(new VoteButton("voteButton", item.getModel(), new SelectedDesignModel(item.getModel())).add(new SetCssClassToWicketId()));
 			}
 		});
+	}
+	
+	private final class SelectedDesignModel extends Model<Boolean> {
+
+		private static final long serialVersionUID = 1L;
+		private IModel<Design> designModel;
+
+		public SelectedDesignModel(IModel<Design> designModel) {
+			this.designModel = designModel;
+		}
+
+		@Override
+		public Boolean getObject() {
+			return designToChoiceMap.get(designModel.getObject());
+		}
+
+		@Override
+		public void setObject(Boolean value) {
+			designToChoiceMap.put(designModel.getObject(), value);
+		}
+		
+	}
+
+	private HashMap<Design, Boolean> setUpDesignToChoiceMap(Member member) {
+		HashMap<Design, Boolean> map = new HashMap<Design, Boolean>((int) Design.countDesigns());
+		
+		for (Design design : designsModel.getObject()){
+			map.put(design, Boolean.FALSE);
+		}
+		
+		member.getDesigns();
+		for (Design chosenDesign : member.getDesigns()) {
+			map.put(chosenDesign, Boolean.TRUE);
+		}
+		
+		return map;
 	}
 	
 }

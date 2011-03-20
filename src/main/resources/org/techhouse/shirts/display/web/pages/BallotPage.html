@@ -9,13 +9,15 @@
 			<form wicket:id="ballotForm">
 				<div class="cells">
 					<div wicket:id="designListView">
-						<div class="thumbnail">
-							<img wicket:id="thumbnail" />
+						<div>
+							<div class="thumbnail">
+								<img wicket:id="thumbnail" />
+							</div>
+							<span wicket:id="name"></span>
+							<span wicket:id="artistAndYear"></span>
+							<button wicket:id="voteButton"></button>
+							<!--<button wicket:id="zoom"></button>-->
 						</div>
-						<span wicket:id="name"></span>
-						<span wicket:id="artistAndYear"></span>
-						<button wicket:id="voteButton"></button>
-						<!--<button wicket:id="zoom"></button>-->
 					</div>
 					<div class="clear"></div>
 				</div>

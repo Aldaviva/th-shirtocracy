@@ -2,9 +2,14 @@ package org.techhouse.shirts.data.entities;
 
 import java.io.Serializable;
 import java.net.URL;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -19,9 +24,9 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooEntity(identifierField = "name")
 public class Design implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
+    @Id
     private String name;
 
     @NotNull
@@ -35,12 +40,16 @@ public class Design implements Serializable {
     @Max(2021L)
     private Integer year;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "vote")
+    private Set<Member> members = new HashSet<Member>();
+
     @Transient
     public Long countVotes() {
-        return entityManager().createQuery("select count(v) from Vote v where v.design = :design", Long.class).setParameter("design", this).getSingleResult();
+    	return (long) members.size();
     }
 
-	public static List<Design> findAllDesigns() {
+    public static List<Design> findAllDesigns() {
         return entityManager().createQuery("select d from Design d order by d.name asc", Design.class).getResultList();
     }
 }

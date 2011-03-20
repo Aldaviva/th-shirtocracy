@@ -7,31 +7,53 @@
 			float: left;
 			width: 20%; //max 5 columns
 			min-width: @size_cells_minWidth;
-			text-align: center;
 			
-			.thumbnail {
-				div {
-					height: 190px;
+			> div {
+				text-align: center;
+				height: @size_cells_height;
+				position: relative;
+				padding: @size_cells_gap;
+				
+				.thumbnail {
+					height: @size_cells_thumbnailMaxHeight;
+					
+					img {
+						max-height: 100%;
+						max-width: 100%;
+						#position > .centerBlock();
+					}
 				}
-				img {
-					max-height: 100%;
-					max-width: 100%;
+				
+				.name {
 					#position > .centerBlock();
+					#font > .size(18px);
+					font-family: "Univers Condensed";
+					margin-top: 4px;
 				}
-			}
-			
-			.name {
-				#position > .centerBlock();
-				#font > .size(18px);
-				font-family: "Univers Condensed";
-				margin-top: 4px;
-			}
-
-			.artistAndYear {
-				#position > .centerBlock();
-				#font > .size(13px);
-				font-style: italic;
-				opacity: 0.75;
+	
+				.artistAndYear {
+					#position > .centerBlock();
+					#font > .size(13px);
+					font-style: italic;
+					opacity: 0.75;
+				}
+				
+				.voteButton {
+					position: absolute;
+					bottom: @size_votebutton_gap;
+					left: @size_votebutton_gap;
+					width: @size_votebutton;
+					height: @size_votebutton;
+					border: 2px solid white;
+					background: @colors_votebutton_background none no-repeat 50% 50%;
+					.background-image("voteButton_check.png");
+					
+					
+					&.selected {
+						background-color: @colors_votebutton_background_enabled;
+						.background-image("voteButton_check_enabled.png");
+					}
+				}
 			}
 		}
 	}

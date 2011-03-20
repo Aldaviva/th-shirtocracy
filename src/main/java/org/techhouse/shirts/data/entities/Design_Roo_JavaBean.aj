@@ -6,6 +6,8 @@ package org.techhouse.shirts.data.entities;
 import java.lang.Integer;
 import java.lang.String;
 import java.net.URL;
+import java.util.Set;
+import org.techhouse.shirts.data.entities.Member;
 
 privileged aspect Design_Roo_JavaBean {
     
@@ -47,6 +49,14 @@ privileged aspect Design_Roo_JavaBean {
     
     public void Design.setYear(Integer year) {
         this.year = year;
+    }
+    
+    public Set<Member> Design.getMembers() {
+        return this.members;
+    }
+    
+    public void Design.setMembers(Set<Member> members) {
+        this.members = members;
     }
     
 }

@@ -1,19 +1,49 @@
 @import "utilities.less";
 
+* {
+	margin: 0;
+}
+html, body {
+	height: 100%;
+}
+
 body {
 	background: hsl(0, 0%, @colors_page_background) none repeat-x 0 0;
-	//.background-image("background_top_shadow.png");
-	position: absolute;
-	left: 0;
-	right: 0;
-	min-height: 100%;
+	//.background-image("layout/background_top_shadow.png");
+	//position: absolute;
+	//left: 0;
+	//right: 0;
+	//min-height: 100%;
 	font: 1em "Univers";
 }
 
 .clear {
-	clear: both;
-	float: none;
+	clear: both !important;
+	float: none !important;
 }
+
+#content {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+}
+
+.main {
+	margin: 0 @size_pillar_width + @size_pillar_innerBorderWidth + @size_pillar_outerBorderWidth;
+	box-shadow: inset 0 0 43px hsla(0, 0%, 0%, 0.15);
+	-moz-box-shadow: inset 0 0 43px hsla(0, 0%, 0%, 0.15);
+	min-height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	//bottom: 0;
+	
+	> div {
+		padding: @size_main_gap;	
+	}
+}
+
 
 /* Pillar layouts */
 .pillar {
@@ -22,8 +52,8 @@ body {
 	background-color: @colors_pillar_background;
 	position: absolute;
 	top: 0;
-	bottom: 0;
-	height: 100%;
+	//bottom: 0;
+	min-height: 100%;
 	width: @size_pillar_width + @size_pillar_innerBorderWidth;
 	
 	.innerBorder {
@@ -41,7 +71,7 @@ body {
 		position: absolute;
 		width: 268px;
 		height: 268px;
-		.background-image("vignette.png");
+		.background-image("layout/vignette.png");
 		background-repeat: no-repeat;
 		opacity: @opacity_vignette;
 	
@@ -92,12 +122,6 @@ body {
 	}
 }
 
-.main {
-	margin: 0 @size_pillar_width + @size_pillar_innerBorderWidth + @size_pillar_outerBorderWidth;
-	padding: @size_main_gap;
-	box-shadow: inset 0 0 43px hsla(0, 0%, 0%, 0.15);
-}
-
 header{
 	display: block;
 	padding-top: 15px;
@@ -107,7 +131,7 @@ header{
 		width: 100px;
 		height: 85px;
 		background-repeat: no-repeat;
-		.background-image ("leftpillar_title.png");
+		.background-image ("layout/leftpillar_title.png");
 		margin: 0 auto;
 	}
 }

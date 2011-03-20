@@ -13,7 +13,8 @@ privileged aspect Design_Roo_ToString {
         sb.append("Thumbnail: ").append(getThumbnail()).append(", ");
         sb.append("Photo: ").append(getPhoto()).append(", ");
         sb.append("Artist: ").append(getArtist()).append(", ");
-        sb.append("Year: ").append(getYear());
+        sb.append("Year: ").append(getYear()).append(", ");
+        sb.append("Members: ").append(getMembers() == null ? "null" : getMembers().size());
         return sb.toString();
     }
     

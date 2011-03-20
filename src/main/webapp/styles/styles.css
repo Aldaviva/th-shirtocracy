@@ -46,17 +46,37 @@
   font-style: italic;
   src: url("../fonts/UniversLTStd-LightCnObl.otf") format("opentype");/* 47 Light Condensed Oblique */
 }
+* {
+  margin: 0;
+}
+html, body {
+  height: 100%;
+}
 body {
   background: #f5f5f5 none repeat-x 0 0;
-  position: absolute;
-  left: 0;
-  right: 0;
-  min-height: 100%;
   font: 1em "Univers";
 }
 .clear {
-  clear: both;
-  float: none;
+  clear: both !important;
+  float: none !important;
+}
+#content {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+}
+.main {
+  margin: 0 140px;
+  box-shadow: inset 0 0 43px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: inset 0 0 43px rgba(0, 0, 0, 0.15);
+  min-height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.main > div {
+  padding: 32px;
 }
 /* Pillar layouts */
 .pillar {
@@ -65,8 +85,7 @@ body {
   background-color: #98a4a6;
   position: absolute;
   top: 0;
-  bottom: 0;
-  height: 100%;
+  min-height: 100%;
   width: 138px;
 }
 .pillar .innerBorder {
@@ -132,11 +151,6 @@ body {
 .pillar.left .vignette.bottom {
   background-position: 100% 0%;
 }
-.main {
-  margin: 0 140px;
-  padding: 32px;
-  box-shadow: inset 0 0 43px rgba(0, 0, 0, 0.15);
-}
 header {
   display: block;
   padding-top: 15px;
@@ -174,19 +188,24 @@ header h1 {
   float: left;
   width: 20%;
   min-width: 324px;
+}
+#BallotPage .cells > div > div {
   text-align: center;
+  height: 316px;
+  position: relative;
+  padding: 17px;
 }
-#BallotPage .cells > div .thumbnail div {
-  height: 190px;
+#BallotPage .cells > div > div .thumbnail {
+  height: 274px;
 }
-#BallotPage .cells > div .thumbnail img {
+#BallotPage .cells > div > div .thumbnail img {
   max-height: 100%;
   max-width: 100%;
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
-#BallotPage .cells > div .name {
+#BallotPage .cells > div > div .name {
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -194,13 +213,27 @@ header h1 {
   font-family: "Univers Condensed";
   margin-top: 4px;
 }
-#BallotPage .cells > div .artistAndYear {
+#BallotPage .cells > div > div .artistAndYear {
   display: block;
   margin-left: auto;
   margin-right: auto;
   font-size: 0.8125em;
   font-style: italic;
   opacity: 0.75;
+}
+#BallotPage .cells > div > div .voteButton {
+  position: absolute;
+  bottom: 17px;
+  left: 17px;
+  width: 25px;
+  height: 25px;
+  border: 2px solid white;
+  background: #406880 none no-repeat 50% 50%;
+  background-image: url(../images/voteButton_check.png);
+}
+#BallotPage .cells > div > div .voteButton.selected {
+  background-color: #408040;
+  background-image: url(../images/voteButton_check_enabled.png);
 }
 @media all and (max-width: 1964px) {
   #BallotPage .cells > div {
