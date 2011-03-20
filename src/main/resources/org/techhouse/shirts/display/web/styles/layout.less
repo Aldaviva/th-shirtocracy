@@ -3,22 +3,17 @@
 body {
 	background: hsl(0, 0%, @colors_page_background) none repeat-x 0 0;
 	font: 1em "Univers";
-	
-}
-
-body {
 	margin: 0;
 	position: absolute;
 	top: 0;
-	width: 100%;
+	left: 0;
+	right: 0;
 	bottom: 0;
-	//border: 4px solid purple;
 }
 
 .table {
 	display: table;
 	table-layout: fixed;
-	//border: 1px solid green;
 	height: 100%;
 	width: 100%;
 }
@@ -33,48 +28,37 @@ body {
 	height: 100%;
 }
 
-.pillar {
-	//border: 1px solid blue;
-	//background: blue;
-}
-
 .main {
-	//border: 1px solid red;
-	//background: red;
+	.background-image("layout/background_top_shadow.png");
+	background-repeat: repeat-x;
 	height: 100%;
-}
-
-.main {
-	//margin: 0 @size_pillar_width + @size_pillar_innerBorderWidth + @size_pillar_outerBorderWidth;
-	box-shadow: inset 0 0 43px hsla(0, 0%, 0%, 0.15);
-	-moz-box-shadow: inset 0 0 43px hsla(0, 0%, 0%, 0.15);
 	
 	> div {
 		padding: @size_main_gap;
 	}	
 }
 
-
-/* Pillar layouts */
 .pillar {
 	border: @size_pillar_outerBorderWidth solid @colors_pillar_border;
 	color: @colors_text_light;
 	background-color: @colors_pillar_background;
 	width: @size_pillar_width + @size_pillar_innerBorderWidth;
 	
+	
 	.border {
 		border: @size_pillar_innerBorderWidth solid white;
 		height: 100%;
+		position: relative;
 	}
 	
 	.pillarContent {
 		position: absolute;
-		width: @size_pillar_width - (2 * @size_pillar_innerContentPadding);
+		width: @size_pillar_width - (2 * (@size_pillar_innerContentPadding + @size_pillar_innerBorderWidth));
 		padding: @size_pillar_innerContentPadding;
 	}
 	
 	.vignette {
-		position: fixed;
+		position: absolute;
 		width: 268px;
 		height: 268px;
 		.background-image("layout/vignette.png");
