@@ -1,8 +1,9 @@
 /*
- * Generated on Sat Mar 19 00:27:44 PDT 2011 by lesscss-maven-plugin.
+ * Generated on Sat Mar 19 15:34:27 PDT 2011 by lesscss-maven-plugin.
  * Do not modify this file directly, modify the corresponding .less file instead and run 'mvn lesscss:convert'.
  */
 
+@charset "utf-8";
 @font-face {
   font-family: 'Univers Condensed';
   font-weight: normal;
@@ -34,6 +35,12 @@
   src: url("../fonts/UniversLTStd-Light.otf") format("opentype");/* 45 Light */
 }
 @font-face {
+  font-family: 'Univers';
+  font-weight: normal;
+  font-style: italic;
+  src: url("../fonts/UniversLTStd-Obl.otf") format("opentype");/* 57 Condensed Oblique */
+}
+@font-face {
   font-family: 'Univers Condensed';
   font-weight: lighter;
   font-style: italic;
@@ -41,30 +48,49 @@
 }
 body {
   background: #f5f5f5 none repeat-x 0 0;
-  background-image: url(../images/layout/background_top_shadow.png);
   position: absolute;
   left: 0;
   right: 0;
+  min-height: 100%;
   font: 1em "Univers";
+}
+.clear {
+  clear: both;
+  float: none;
 }
 /* Pillar layouts */
 .pillar {
-  border: 2px solid #808080;
+  border: 2px solid #778688;
   color: #ffffff;
-  background-color: #c2c2c2;
-}
-.pillar .innerBorder {
-  border: 1px solid white;
-}
-.pillar.left, .pillar.right {
+  background-color: #98a4a6;
   position: absolute;
   top: 0;
   bottom: 0;
   height: 100%;
-  width: 137px;
+  width: 138px;
 }
-.pillar.left .innerBorder, .pillar.right .innerBorder {
+.pillar .innerBorder {
+  border: 1px solid white;
   height: 100%;
+}
+.pillar .innerContent {
+  position: absolute;
+  width: 117px;
+  padding: 10px;
+}
+.pillar .vignette {
+  position: absolute;
+  width: 268px;
+  height: 268px;
+  background-image: url(../images/layout/vignette.png);
+  background-repeat: no-repeat;
+  opacity: 0.3;
+}
+.pillar .vignette.top {
+  top: 0;
+}
+.pillar .vignette.bottom {
+  bottom: 0;
 }
 .pillar.right {
   right: 0;
@@ -77,6 +103,15 @@ body {
   border-right-style: none;
   border-bottom-style: none;
 }
+.pillar.right .vignette {
+  right: 0;
+}
+.pillar.right .vignette.top {
+  background-position: 0% 100%;
+}
+.pillar.right .vignette.bottom {
+  background-position: 0% 0%;
+}
 .pillar.left {
   left: 0;
   border-top-style: none;
@@ -88,12 +123,23 @@ body {
   border-bottom-style: none;
   border-left-style: none;
 }
+.pillar.left .vignette {
+  left: 0;
+}
+.pillar.left .vignette.top {
+  background-position: 100% 100%;
+}
+.pillar.left .vignette.bottom {
+  background-position: 100% 0%;
+}
 .main {
-  margin: 0 157px;
+  margin: 0 140px;
+  padding: 32px;
+  box-shadow: inset 0 0 43px rgba(0, 0, 0, 0.15);
 }
 header {
   display: block;
-  padding-top: 25px;
+  padding-top: 15px;
 }
 header h1 {
   text-indent: -9999px;
@@ -104,13 +150,12 @@ header h1 {
   margin: 0 auto;
 }
 .navigation {
-  padding: 10px;
   font-family: "Univers";
   line-height: 1.5em;
   font-size: 0.8125em;
 }
 .navigation h3 {
-  color: #616161;
+  color: #616e70;
   text-transform: uppercase;
   margin-left: -8px;
   font-family: "Univers Condensed";
@@ -124,4 +169,56 @@ header h1 {
 }
 .navigation a {
   display: block;
+}
+#BallotPage .cells > div {
+  float: left;
+  width: 20%;
+  min-width: 324px;
+  text-align: center;
+}
+#BallotPage .cells > div .thumbnail div {
+  height: 190px;
+}
+#BallotPage .cells > div .thumbnail img {
+  max-height: 100%;
+  max-width: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+#BallotPage .cells > div .name {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.125em;
+  font-family: "Univers Condensed";
+  margin-top: 4px;
+}
+#BallotPage .cells > div .artistAndYear {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 0.8125em;
+  font-style: italic;
+  opacity: 0.75;
+}
+@media all and (max-width: 1964px) {
+  #BallotPage .cells > div {
+    width: 25%;
+  }
+}
+@media all and (max-width: 1640px) {
+  #BallotPage .cells > div {
+    width: 33%;
+  }
+}
+@media all and (max-width: 1316px) {
+  #BallotPage .cells > div {
+    width: 50%;
+  }
+}
+@media all and (max-width: 992px) {
+  #BallotPage .cells > div {
+    width: 100%;
+  }
 }

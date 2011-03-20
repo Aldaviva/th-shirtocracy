@@ -1,4 +1,6 @@
 syntax: glob
 target
-roo.log
+log.roo
 *.psd
+syntax: regexp
+^log\.roo$

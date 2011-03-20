@@ -1,0 +1,62 @@
+@charset "utf-8";
+@import "layout.less";
+
+#BallotPage {
+	.cells {
+		> div {
+			float: left;
+			width: 20%; //max 5 columns
+			min-width: @size_cells_minWidth;
+			text-align: center;
+			
+			.thumbnail {
+				div {
+					height: 190px;
+				}
+				img {
+					max-height: 100%;
+					max-width: 100%;
+					#position > .centerBlock();
+				}
+			}
+			
+			.name {
+				#position > .centerBlock();
+				#font > .size(18px);
+				font-family: "Univers Condensed";
+				margin-top: 4px;
+			}
+
+			.artistAndYear {
+				#position > .centerBlock();
+				#font > .size(13px);
+				font-style: italic;
+				opacity: 0.75;
+			}
+		}
+	}
+	
+	@media all and (max-width: 1964px) {
+		#BallotPage .cells > div {
+			width: 25%;
+		}
+	}
+	
+	@media all and (max-width: 1640px) {
+		#BallotPage .cells > div {
+			width: 33%;
+		}
+	}
+	
+	@media all and (max-width: 1316px) {
+		#BallotPage .cells > div {
+			width: 50%;
+		}
+	}
+	
+	@media all and (max-width: 992px) {
+		#BallotPage .cells > div {
+			width: 100%;
+		}
+	}
+}

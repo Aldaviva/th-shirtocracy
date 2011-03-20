@@ -1,5 +1,6 @@
 package org.techhouse.shirts.display.web.pages;
 
+import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.AbstractReadOnlyModel;
@@ -11,6 +12,17 @@ public abstract class BasePage extends HtmlPage {
 
 	public BasePage() {
 		super();
+		
+		add(new WebMarkupContainer("main"){
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean isTransparentResolver() {
+				return true;
+			}
+			
+		}.add(new SimpleAttributeModifier("id", this.getClass().getSimpleName())));
 		
 		add(new Label("username", new AbstractReadOnlyModel<String>() {
 

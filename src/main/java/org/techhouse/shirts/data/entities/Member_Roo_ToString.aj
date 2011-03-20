@@ -10,7 +10,8 @@ privileged aspect Member_Roo_ToString {
     public String Member.toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Name: ").append(getName()).append(", ");
-        sb.append("Role: ").append(getRole());
+        sb.append("Role: ").append(getRole()).append(", ");
+        sb.append("Designs: ").append(getDesigns() == null ? "null" : getDesigns().size());
         return sb.toString();
     }
     

@@ -5,7 +5,8 @@
 		<wicket:head>
 			<title>Technology House Apparel</title>
 			<link href="styles/reset.css" rel="stylesheet" type="text/css" />
-			<link href="styles/layout.css" rel="stylesheet" type="text/css" />
+			<link href="styles/styles.css" rel="stylesheet" type="text/css" />
+			<link rel="shortcut icon" href="http://techhouse.org/favicon.ico" type="image/x-icon" />
 		</wicket:head>
 	</head>
 	
@@ -13,19 +14,25 @@
 		<wicket:extend>
 			<div class="pillar left">
 				<div class="innerBorder">
-					<header>
-						<h1>Technology House Apparel</h1>
-					</header>
+					<div class="vignette top"></div>
+					<div class="vignette bottom"></div>
+					<div class="innerContent">
+						<header>
+							<h1>Technology House Apparel</h1>
+						</header>
+					</div>
 				</div>
 			</div>
 			
-			<div class="main">
+			<div class="main" wicket:id="main">
 				<wicket:child />
 			</div>
 			
 			<div class="pillar right">
 				<div class="innerBorder">
-					<div class="navigation">
+					<div class="vignette top"></div>
+					<div class="vignette bottom"></div>
+					<div class="navigation innerContent">
 						<div>
 							<h3 wicket:id="username"></h3>
 							<a><wicket:message key="nav.user.logout" /></a>

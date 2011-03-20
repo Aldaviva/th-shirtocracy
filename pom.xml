@@ -486,8 +486,8 @@
 				<configuration>
 					<filePairs>
 						<property>
-							<name>${basedir}/src/main/resources/org/techhouse/shirts/display/web/styles/layout.less</name>
-							<value>${basedir}/src/main/webapp/styles/layout.css</value>
+							<name>${basedir}/src/main/resources/org/techhouse/shirts/display/web/styles/styles.less</name>
+							<value>${basedir}/src/main/webapp/styles/styles.css</value>
 						</property>
 					</filePairs>
 					<compress>false</compress>

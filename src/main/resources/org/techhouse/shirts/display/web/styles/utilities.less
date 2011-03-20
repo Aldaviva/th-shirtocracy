@@ -15,14 +15,22 @@
 }
 
 #color {
-	.text (@brightnessPreset) {
-		color: hsl(0, 0%, @brightnessPreset);
-	}
+	//.text (@brightnessPreset) {
+	//	color: hsl(0, 0%, @brightnessPreset);
+	//}
 }
 
 #font {
 	.size (@pixels, @parent: 16px) {
 		font-size: e(%('%s%s', e(@pixels/@parent), em));
+	}
+}
+
+#position {
+	.centerBlock () {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
 	}
 }
 

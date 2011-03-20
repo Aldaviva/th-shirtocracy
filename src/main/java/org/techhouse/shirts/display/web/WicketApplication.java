@@ -13,7 +13,6 @@ import org.apache.wicket.authorization.IAuthorizationStrategy;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.RequestParameters;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
-import org.techhouse.shirts.display.web.pages.AuthenticatedWebPage;
 import org.techhouse.shirts.display.web.pages.BallotPage;
 import org.techhouse.shirts.display.web.pages.LoginPage;
 import org.techhouse.shirts.display.web.pages.StatisticsPage;

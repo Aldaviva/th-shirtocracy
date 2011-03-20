@@ -4,6 +4,8 @@
 package org.techhouse.shirts.data.entities;
 
 import java.lang.String;
+import java.util.Set;
+import org.techhouse.shirts.data.entities.Design;
 import org.techhouse.shirts.data.enums.Role;
 
 privileged aspect Member_Roo_JavaBean {
@@ -22,6 +24,14 @@ privileged aspect Member_Roo_JavaBean {
     
     public void Member.setRole(Role role) {
         this.role = role;
+    }
+    
+    public Set<Design> Member.getDesigns() {
+        return this.designs;
+    }
+    
+    public void Member.setDesigns(Set<Design> designs) {
+        this.designs = designs;
     }
     
 }

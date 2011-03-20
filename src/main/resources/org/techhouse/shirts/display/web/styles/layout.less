@@ -1,44 +1,77 @@
-@import "common.less";
+@import "utilities.less";
 
 body {
 	background: hsl(0, 0%, @colors_page_background) none repeat-x 0 0;
-	.background-image("background_top_shadow.png");
+	//.background-image("background_top_shadow.png");
 	position: absolute;
 	left: 0;
 	right: 0;
+	min-height: 100%;
 	font: 1em "Univers";
+}
+
+.clear {
+	clear: both;
+	float: none;
 }
 
 /* Pillar layouts */
 .pillar {
-	border: 2px solid hsl(0, 0%, @colors_pillar_border);
-	#color > .text(@colors_text_light);
-	background-color: hsl(0, 0%, @colors_pillar_background);
+	border: @size_pillar_outerBorderWidth solid @colors_pillar_border;
+	color: @colors_text_light;
+	background-color: @colors_pillar_background;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	height: 100%;
+	width: @size_pillar_width + @size_pillar_innerBorderWidth;
 	
 	.innerBorder {
-		border: 1px solid white;
+		border: @size_pillar_innerBorderWidth solid white;
+		height: 100%;
 	}
 	
-	
-	&.left, &.right {
+	.innerContent {
 		position: absolute;
-		top: 0;
-		bottom: 0;
-		height: 100%;
-		width: @size_pillar_width;
-		
-		.innerBorder {
-			height: 100%;
+		width: @size_pillar_width - (2 * @size_pillar_innerContentPadding);
+		padding: @size_pillar_innerContentPadding;
+	}
+	
+	.vignette {
+		position: absolute;
+		width: 268px;
+		height: 268px;
+		.background-image("vignette.png");
+		background-repeat: no-repeat;
+		opacity: @opacity_vignette;
+	
+		&.top {
+			top: 0;
+		}
+		&.bottom {
+			bottom: 0;
 		}
 	}
+	
 	&.right {
 		right: 0;
 		
 		#border > .borderSolid(left);
 		.innerBorder {
 			#border > .borderSolid(left);
-		}	
+		}
+		
+		.vignette {
+			right: 0;
+			&.top {
+				background-position: 0% 100%;
+			}
+			&.bottom {
+				background-position: 0% 0%;
+			}
+		}
 	}
+	
 	&.left {
 		left: 0;
 		
@@ -46,16 +79,28 @@ body {
 		.innerBorder {
 			#border > .borderSolid(right);	
 		}
+		
+		.vignette {
+			left: 0;
+			&.top {
+				background-position: 100% 100%;
+			}
+			&.bottom {
+				background-position: 100% 0%;
+			}
+		}
 	}
 }
 
 .main {
-	margin: 0 (@size_pillar_width + 20px);	
+	margin: 0 @size_pillar_width + @size_pillar_innerBorderWidth + @size_pillar_outerBorderWidth;
+	padding: @size_main_gap;
+	box-shadow: inset 0 0 43px hsla(0, 0%, 0%, 0.15);
 }
 
 header{
 	display: block;
-	padding-top: 25px;
+	padding-top: 15px;
 	
 	h1 {
 		text-indent: -9999px;
@@ -68,13 +113,12 @@ header{
 }
 
 .navigation {
-	padding: 10px;
 	font-family: "Univers";
 	line-height: 1.5em;
 	#font>.size(@font_size_navigation_text, 16px);
 	
 	h3 {
-		#color > .text(@colors_text_medium);
+		color: @colors_text_medium;
 		text-transform: uppercase;
 		margin-left: -1 * @size_nav_linkLeftGap;
 		font-family: "Univers Condensed";

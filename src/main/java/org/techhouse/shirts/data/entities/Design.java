@@ -1,5 +1,6 @@
 package org.techhouse.shirts.data.entities;
 
+import java.io.Serializable;
 import java.net.URL;
 import java.util.List;
 
@@ -11,16 +12,14 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
-import org.springframework.roo.addon.serializable.RooSerializable;
 import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
 @RooEntity(identifierField = "name")
-@RooSerializable
-public class Design {
+public class Design implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 	@Id
     private String name;
