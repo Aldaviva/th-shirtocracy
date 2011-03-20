@@ -11,6 +11,8 @@ import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.image.Image;
@@ -23,15 +25,18 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.techhouse.shirts.data.entities.Design;
 import org.techhouse.shirts.data.entities.Member;
 import org.techhouse.shirts.display.web.behaviors.SetCssClassToWicketId;
 import org.techhouse.shirts.display.web.components.VoteButton;
 import org.techhouse.shirts.service.VoteService;
-import org.techhouse.shirts.service.security.WicketSession;
 
-public class BallotPage extends BasePage /* implements AuthenticatedWebPage */ {
+public class BallotPage extends SavablePage /* implements AuthenticatedWebPage */ {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(BallotPage.class);
+	
 	@SpringBean
 	private VoteService voteService;
 	
@@ -40,6 +45,8 @@ public class BallotPage extends BasePage /* implements AuthenticatedWebPage */ {
 	private final HashMap<Design, Boolean> designToChoiceMap;
 	
 	private final IModel<List<Design>> designsModel;
+
+	private final Form<Member> ballotForm;
 	
 	public BallotPage() {
 		super();
@@ -58,7 +65,7 @@ public class BallotPage extends BasePage /* implements AuthenticatedWebPage */ {
 		
 		designToChoiceMap = setUpDesignToChoiceMap(member);
 		
-		final Form<Member> ballotForm = new Form<Member>("ballotForm", Model.of(member)) {
+		ballotForm = new Form<Member>("ballotForm", Model.of(member)) {
 
 			private static final long serialVersionUID = 1L;
 
@@ -101,7 +108,22 @@ public class BallotPage extends BasePage /* implements AuthenticatedWebPage */ {
 					}
 				}).add(new SetCssClassToWicketId()));
 				
-				item.add(new VoteButton("voteButton", item.getModel(), new SelectedDesignModel(item.getModel())).add(new SetCssClassToWicketId()));
+				item.add(new VoteButton("voteButton", new SelectedDesignModel(item.getModel())).add(new SetCssClassToWicketId()));
+			}
+		});
+		
+		addSaveBehavior(new AjaxFormSubmitBehavior(ballotForm, "onclick") {
+			
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			protected void onSubmit(AjaxRequestTarget target) {
+				LOGGER.info("Submitting form");
+			}
+			
+			@Override
+			protected void onError(AjaxRequestTarget target) {
+				LOGGER.error("Error while submitting form");
 			}
 		});
 	}
@@ -141,5 +163,4 @@ public class BallotPage extends BasePage /* implements AuthenticatedWebPage */ {
 		
 		return map;
 	}
-	
 }

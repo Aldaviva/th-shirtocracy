@@ -9,7 +9,7 @@ import org.techhouse.shirts.service.security.WicketSession;
 
 
 public abstract class BasePage extends HtmlPage {
-
+	
 	public BasePage() {
 		super();
 		
@@ -37,12 +37,9 @@ public abstract class BasePage extends HtmlPage {
 				}
 			}
 		}));
-		
-		
+	
 		add(new WebMarkupContainer("admin").setVisible(WicketSession.get().hasRole(Role.ADMIN)));
 		add(new WebMarkupContainer("results").setVisible(WicketSession.get().hasRole(Role.ADMIN)));
 	}
-
-	
 	
 }

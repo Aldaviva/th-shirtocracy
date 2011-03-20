@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
@@ -31,7 +32,8 @@ public class Member implements Serializable {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "members")
+    @ManyToMany(cascade = CascadeType.ALL) //TODO probably don't want to cascade all
+    @JoinTable(name = "vote")
     private Set<Design> designs = new HashSet<Design>();
     
     @Transient

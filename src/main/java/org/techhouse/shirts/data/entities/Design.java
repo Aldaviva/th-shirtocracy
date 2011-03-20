@@ -40,8 +40,7 @@ public class Design implements Serializable {
     @Max(2021L)
     private Integer year;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "vote")
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "designs") //TODO probably don't want to cascade all
     private Set<Member> members = new HashSet<Member>();
 
     @Transient

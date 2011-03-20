@@ -18,7 +18,8 @@ public class VoteService {
 	public void submitBallot(Member member, Collection<Design> selectedDesigns) {
 		member.getDesigns().clear();
 		member.getDesigns().addAll(selectedDesigns);
-		LOGGER.info("{} is now voting for {}.", member.getName(), member.getDesigns().toString());
+		member.merge();
+//		LOGGER.info("{} is now voting for {}.", member.getName(), member.getDesigns().toString());
 	}
 	
 }
