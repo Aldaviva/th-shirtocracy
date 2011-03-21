@@ -8,8 +8,8 @@ import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 import org.techhouse.shirts.data.entities.Design;
 import org.techhouse.shirts.data.entities.Member;
-import org.techhouse.shirts.display.web.AuthenticatedWebPage;
-import org.techhouse.shirts.display.web.WicketSession;
+import org.techhouse.shirts.display.web.security.AuthenticatedWebPage;
+import org.techhouse.shirts.display.web.security.WicketSession;
 
 public class HomePage extends BasePage implements AuthenticatedWebPage {
 

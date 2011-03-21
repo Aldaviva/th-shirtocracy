@@ -21,7 +21,7 @@
 	default-init-method="init">
 
 	<!-- Enable this if transactions don't work -->
-	<!-- <aop:aspectj-autoproxy />
+	<!--<aop:aspectj-autoproxy />
 	<bean id="annotationTransactionAspect" factory-method="aspectOf" class="org.springframework.transaction.aspectj.AnnotationTransactionAspect">
 		<property name="transactionManager" ref="transactionManager" />
 	</bean>-->

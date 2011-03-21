@@ -11,7 +11,7 @@ privileged aspect Design_Roo_ToString {
         StringBuilder sb = new StringBuilder();
         sb.append("Name: ").append(getName()).append(", ");
         sb.append("Thumbnail: ").append(getThumbnail()).append(", ");
-        sb.append("Photo: ").append(getPhoto()).append(", ");
+        sb.append("Photograph: ").append(getPhotograph()).append(", ");
         sb.append("Artist: ").append(getArtist()).append(", ");
         sb.append("Year: ").append(getYear()).append(", ");
         sb.append("Members: ").append(getMembers() == null ? "null" : getMembers().size());

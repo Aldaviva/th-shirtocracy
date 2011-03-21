@@ -75,9 +75,15 @@ body {
   background-image: url(../images/layout/background_top_shadow.png);
   background-repeat: repeat-x;
   height: 100%;
+  width: 100%;
+  position: relative;
 }
-.main > div {
+.main .mainPadding {
   padding: 32px;
+}
+a, a:visited {
+  text-decoration: none;
+  color: #406880;
 }
 .pillar {
   border: 2px solid #778688;
@@ -170,18 +176,62 @@ header h1 {
 .navigation h3 {
   color: #616e70;
   text-transform: uppercase;
-  margin-left: -8px;
   font-family: "Univers Condensed";
   font-weight: bold;
   font-size: 0.9230769230769231em;
   margin-bottom: 1px;
 }
+.navigation a, .navigation a:visited {
+  display: block;
+  color: #ffffff;
+  padding-left: 8px;
+}
+.navigation a:hover, .navigation a:visited:hover {
+  text-shadow: 0 0 8px #ffffff;
+}
+.navigation a:active, .navigation a:visited:active {
+  background-color: #ffffff;
+  border-radius: 3px;
+  color: #2b2b2b;
+}
 .navigation > div {
-  margin-left: 8px;
   margin-bottom: 20px;
 }
-.navigation a {
-  display: block;
+.form {
+  max-width: 300px;
+  margin: 0 auto;
+  background-color: white;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.25);
+  padding: 2em;
+}
+.pageTitle {
+  font-size: 1.5em;
+  margin-bottom: 0.8em;
+}
+h2 {
+  font-size: 1.5em;
+  margin-bottom: 0.8em;
+}
+.feedbackPanel {
+  position: absolute;
+  top: 8px;
+  width: 100%;
+}
+.feedbackPanel li {
+  text-align: center;
+  font-size: 0.75em;
+}
+.feedbackPanel li span {
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
+.feedbackPanel span.feedbackPanelERROR {
+  background-color: #804040;
+  color: #ffffff;
+  padding: 2px 6px;
 }
 #BallotPage .cells > div {
   float: left;
@@ -253,4 +303,93 @@ header h1 {
   #BallotPage .cells > div {
     width: 100%;
   }
+}
+#DesignEditPage form {
+  max-width: 300px;
+  margin: 0 auto;
+  background-color: white;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.25);
+  padding: 2em;
+}
+#DesignEditPage form .fields {
+  margin: 0.8em 0;
+  padding: 0.8em 0;
+  border: 1px dashed #98a4a6;
+  border-right-style: none;
+  border-left-style: none;
+}
+#DesignEditPage form label {
+  display: block;
+  clear: both;
+  line-height: 1.5em;
+  padding: 1px 0;
+}
+#DesignEditPage form label + label {
+  margin-top: 0.8em;
+}
+#DesignEditPage form input[type=text] {
+  float: right;
+  height: 1.5em;
+  width: 66.6667%;
+  margin-top: -1px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #aeaeae #c8c8c8 #e3e3e3;
+}
+#DesignEditPage form .name[type=text] {
+  font-size: 1.5em;
+  margin-bottom: 0.8em;
+  float: none;
+  width: 298px;
+}
+#DesignEditPage form input.save {
+  width: 300px;
+  border: 2px solid #234623;
+  background-color: #408040;
+  color: #ffffff;
+  padding: 0.4em;
+  font-family: "Univers Condensed";
+  font-size: 1.125em;
+  margin-top: 0.8em;
+  cursor: pointer;
+}
+#DesignEditPage form input.save:hover {
+  background-color: #4e9b4e;
+}
+#DesignEditPage form input.delete {
+  width: 300px;
+  border: 2px solid #462323;
+  background-color: #804040;
+  color: #ffffff;
+  padding: 0.4em;
+  font-family: "Univers Condensed";
+  font-size: 1.125em;
+  margin-top: 0.8em;
+  cursor: pointer;
+}
+#DesignEditPage form input.delete:hover {
+  background-color: #9b4e4e;
+}
+#DesignEditPage form .hr {
+  text-align: center;
+  text-transform: lowercase;
+  font-style: italic;
+  font-size: 0.75em;
+  color: #98a4a6;
+  margin: 0.4em 0 1.2000000000000002em;
+  height: 0.75em;
+  border-bottom: 1px dashed #98a4a6;
+}
+#DesignEditPage form .hr > span {
+  background-color: white;
+  padding: 0 1em;
+}
+#DesignListPage .form li {
+  font-size: 1.125em;
+  color: #406880;
+}
+#DesignListPage .form li:before {
+  content: "- ";
 }

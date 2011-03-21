@@ -1,7 +1,7 @@
 @import "utilities.less";
 
 body {
-	background: hsl(0, 0%, @colors_page_background) none repeat-x 0 0;
+	background: @colors_page_background none repeat-x 0 0;
 	font: 1em "Univers";
 	margin: 0;
 	position: absolute;
@@ -33,10 +33,17 @@ body {
 	.background-image("layout/background_top_shadow.png");
 	background-repeat: repeat-x;
 	height: 100%;
+	width: 100%;
+	position: relative;
 	
-	> div {
+	.mainPadding {
 		padding: @size_main_gap;
 	}	
+}
+
+a, a:visited {
+	text-decoration: none;
+	color: @colors_blue;
 }
 
 .pillar {
@@ -45,12 +52,12 @@ body {
 	background-color: @colors_pillar_background;
 	width: @size_pillar_width + @size_pillar_innerBorderWidth;
 	
-	
 	.border {
 		border: @size_pillar_innerBorderWidth solid white;
 		height: 100%;
 		position: absolute;
 		width: @size_pillar_width;
+		//background-color: red;
 	}
 	
 	.pillarContent {
@@ -78,9 +85,9 @@ body {
 	&.right {
 		right: 0;
 		
-		#border > .borderSolid(left);
+		#border > .solid(left);
 		.border {
-			#border > .borderSolid(left);
+			#border > .solid(left);
 		}
 		
 		.vignette {
@@ -97,9 +104,9 @@ body {
 	&.left {
 		left: 0;
 		
-		#border > .borderSolid(right);
+		#border > .solid(right);
 		.border {
-			#border > .borderSolid(right);	
+			#border > .solid(right);	
 		}
 		
 		.vignette {
@@ -136,19 +143,70 @@ header{
 	h3 {
 		color: @colors_text_medium;
 		text-transform: uppercase;
-		margin-left: -1 * @size_nav_linkLeftGap;
+		//margin-left: -1 * @size_nav_linkLeftGap;
 		font-family: "Univers Condensed";
 		font-weight: bold;
 		#font>.size(@font_size_navigation_heading, @font_size_navigation_text);
 		margin-bottom: 1px;
 	}
 	
-	> div {
-		margin-left: @size_nav_linkLeftGap;
-		margin-bottom: @size_nav_sectionBottomGap;
+	a, a:visited {
+		display: block;
+		color: @colors_text_light;
+		padding-left: @size_nav_linkLeftGap;
+		
+		&:hover {
+			text-shadow: 0 0 8px hsla(hue(@colors_text_light), saturation(@colors_text_light), lightness(@colors_text_light), 1);
+		}
+		
+		&:active {
+			background-color: @colors_text_light;
+			border-radius: 3px;
+			color: @colors_text_dark;
+		}
 	}
 	
-	a {
-		display: block;
+	> div {
+		
+		margin-bottom: @size_nav_sectionBottomGap;
 	}
+}
+
+.form {
+	max-width: @size_designform_width;
+	margin: 0 auto;
+	background-color: white;
+	#shadow>.box(0, 3px, 5px, hsla(0, 0, 0, 0.25));
+	padding: 2em;	
+}
+
+.pageTitle {
+	#font>.size(24px);
+	margin-bottom: @size_designform_fieldGap;
+}
+
+h2 {
+	.pageTitle;
+}
+
+.feedbackPanel {
+	position: absolute;
+	top: 8px;
+	width: 100%;
+	
+	li {
+		text-align: center;
+		#font>.size(12px);
+		
+		span {
+			#border>.radius(3px);
+		}
+	}
+	
+	span.feedbackPanelERROR {
+		background-color: @colors_red;
+		color: @colors_text_light;
+		padding: 2px 6px;
+	}
+	
 }

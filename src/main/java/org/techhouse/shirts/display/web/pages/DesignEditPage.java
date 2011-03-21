@@ -5,19 +5,24 @@ import java.net.URL;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.validator.RangeValidator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.techhouse.shirts.data.entities.Design;
-import org.techhouse.shirts.display.web.AuthenticatedWebPage;
 import org.techhouse.shirts.display.web.WicketApplication;
 import org.techhouse.shirts.display.web.behaviors.PlaceholderBehavior;
 import org.techhouse.shirts.display.web.behaviors.SetCssClassToWicketIdBehavior;
+import org.techhouse.shirts.display.web.security.AdminPage;
 import org.techhouse.shirts.service.DesignService;
 
 
-public class DesignEditPage extends BasePage implements AuthenticatedWebPage {
+public class DesignEditPage extends BasePage implements AdminPage {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(DesignEditPage.class);
+	
 	private Form<Design> form;
 	private final boolean isNewDesign;
 	
@@ -40,8 +45,10 @@ public class DesignEditPage extends BasePage implements AuthenticatedWebPage {
 
 			@Override
 			protected void onSubmit() {
+				LOGGER.info("Saving...");
 				designService.save(getModelObject());
 				setResponsePage(WicketApplication.get().getHomePage());
+				LOGGER.info("Saved");
 			}
 
 			@Override
@@ -49,6 +56,7 @@ public class DesignEditPage extends BasePage implements AuthenticatedWebPage {
 				super.onError();
 			}
 		};
+		add(form);
 		
 		form.add(
 				new TextField<String>("name")
@@ -84,6 +92,23 @@ public class DesignEditPage extends BasePage implements AuthenticatedWebPage {
 		);
 		
 		form.add(
+				new Button("save", new AbstractReadOnlyModel<String>() {
+
+					private static final long serialVersionUID = 1L;
+		
+					@Override
+					public String getObject() {
+						if(isNewDesign){
+							return getString("label.submitNew");
+						} else {
+							return getString("label.submitExisting");
+						}
+					}
+				}
+			).add(new SetCssClassToWicketIdBehavior())
+		);
+		
+		form.add(
 				new Button("delete"){
 					private static final long serialVersionUID = 1L;
 		
@@ -99,8 +124,9 @@ public class DesignEditPage extends BasePage implements AuthenticatedWebPage {
 					}
 				}
 				.setDefaultFormProcessing(false)
-				.setVisible(isNewDesign)
-				.add(new SetCssClassToWicketIdBehavior())
+				.setVisible(!isNewDesign)
+				.add(new SetCssClassToWicketIdBehavior()
+			)
 		);
 	}
 	

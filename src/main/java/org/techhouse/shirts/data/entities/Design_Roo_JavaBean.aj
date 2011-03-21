@@ -27,12 +27,12 @@ privileged aspect Design_Roo_JavaBean {
         this.thumbnail = thumbnail;
     }
     
-    public URL Design.getPhoto() {
-        return this.photo;
+    public URL Design.getPhotograph() {
+        return this.photograph;
     }
     
-    public void Design.setPhoto(URL photo) {
-        this.photo = photo;
+    public void Design.setPhotograph(URL photograph) {
+        this.photograph = photograph;
     }
     
     public String Design.getArtist() {

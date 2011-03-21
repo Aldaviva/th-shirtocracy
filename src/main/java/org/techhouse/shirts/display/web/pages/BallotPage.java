@@ -24,11 +24,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.techhouse.shirts.data.entities.Design;
 import org.techhouse.shirts.data.entities.Member;
-import org.techhouse.shirts.display.web.AuthenticatedWebPage;
 import org.techhouse.shirts.display.web.WicketApplication;
-import org.techhouse.shirts.display.web.WicketSession;
 import org.techhouse.shirts.display.web.behaviors.SetCssClassToWicketIdBehavior;
 import org.techhouse.shirts.display.web.components.VoteButton;
+import org.techhouse.shirts.display.web.security.AuthenticatedWebPage;
+import org.techhouse.shirts.display.web.security.WicketSession;
 import org.techhouse.shirts.service.VoteService;
 
 public class BallotPage extends BasePage implements AuthenticatedWebPage {
@@ -47,8 +47,6 @@ public class BallotPage extends BasePage implements AuthenticatedWebPage {
 	public BallotPage() {
 		super();
 		
-		LOGGER.info("Constructing new BallotPage");
-		
 		if(WicketApplication.get().isDevelopment()){
 			memberModel = Model.of(Member.findMember("ben"));
 		} else {
@@ -61,7 +59,7 @@ public class BallotPage extends BasePage implements AuthenticatedWebPage {
 
 			@Override
 			protected List<Design> load() {
-				return Design.findAllDesigns();
+				return Design.listByDateAsc();
 			}
 		};
 		
@@ -83,7 +81,6 @@ public class BallotPage extends BasePage implements AuthenticatedWebPage {
 
 			@Override
 			protected void populateItem(final ListItem<Design> item) {
-				LOGGER.info("creating list item for design "+item.getModelObject().hashCode());
 				item.setModel(new CompoundPropertyModel<Design>(item.getModelObject()));
 				
 				item.add(new Image("thumbnail").add(new AttributeModifier("src", new PropertyModel<URL>(item.getModel(), "thumbnail"))));
@@ -115,13 +112,11 @@ public class BallotPage extends BasePage implements AuthenticatedWebPage {
 
 		public SelectedDesignModel(IModel<Design> designModel) {
 			this.designModel = designModel;
-			LOGGER.info("Creating model for VoteButton for design "+designModel.getObject().hashCode());
 		}
 
 		@Override
 		public Boolean getObject() {
 			Design object = designModel.getObject();
-			LOGGER.info("seeing if member is voting for design "+object.hashCode());
 			return memberModel.getObject().getDesigns().contains(object);
 		}
 

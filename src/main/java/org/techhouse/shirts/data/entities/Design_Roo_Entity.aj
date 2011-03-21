@@ -4,11 +4,14 @@
 package org.techhouse.shirts.data.entities;
 
 import java.lang.Integer;
-import java.lang.String;
+import java.lang.Long;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Version;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,9 +24,22 @@ privileged aspect Design_Roo_Entity {
     @PersistenceContext
     transient EntityManager Design.entityManager;
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Long Design.id;
+    
     @Version
     @Column(name = "version")
     private Integer Design.version;
+    
+    public Long Design.getId() {
+        return this.id;
+    }
+    
+    public void Design.setId(Long id) {
+        this.id = id;
+    }
     
     public Integer Design.getVersion() {
         return this.version;
@@ -45,7 +61,7 @@ privileged aspect Design_Roo_Entity {
         if (this.entityManager.contains(this)) {
             this.entityManager.remove(this);
         } else {
-            Design attached = Design.findDesign(this.name);
+            Design attached = Design.findDesign(this.id);
             this.entityManager.remove(attached);
         }
     }
@@ -80,8 +96,12 @@ privileged aspect Design_Roo_Entity {
         return entityManager().createQuery("select count(o) from Design o", Long.class).getSingleResult();
     }
     
-    public static Design Design.findDesign(String id) {
-        if (id == null || 0 == id.length()) return null;
+    public static List<Design> Design.findAllDesigns() {
+        return entityManager().createQuery("select o from Design o", Design.class).getResultList();
+    }
+    
+    public static Design Design.findDesign(Long id) {
+        if (id == null) return null;
         return entityManager().find(Design.class, id);
     }
     

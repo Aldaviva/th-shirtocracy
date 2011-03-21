@@ -1,4 +1,4 @@
-package org.techhouse.shirts.display.web.pages;
+package org.techhouse.shirts.display.web.security;
 
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.PasswordTextField;
@@ -9,7 +9,6 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.util.value.ValueMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.techhouse.shirts.display.web.WicketSession;
 
 public class LoginPage extends WebPage {
 	

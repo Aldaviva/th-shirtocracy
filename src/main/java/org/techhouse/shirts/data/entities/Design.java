@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 import javax.validation.constraints.Max;
@@ -21,18 +19,17 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooEntity(identifierField = "name")
+@RooEntity
 public class Design implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
     private String name;
 
     @NotNull
     private URL thumbnail;
 
-    private URL photo;
+    private URL photograph;
 
     private String artist;
 
@@ -48,7 +45,8 @@ public class Design implements Serializable {
     	return (long) members.size();
     }
 
-    public static List<Design> findAllDesigns() {
-        return entityManager().createQuery("select d from Design d order by d.name asc", Design.class).getResultList();
-    }
+
+	public static List<Design> listByDateAsc() {
+		return entityManager().createQuery("select d from Design d order by d.year desc, d.name asc", Design.class).getResultList();
+	}
 }

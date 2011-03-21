@@ -20,7 +20,9 @@
 							<div class="vignette bottom"></div>
 							<div class="pillarContent">
 								<header>
-									<h1>Technology House Apparel</h1>
+									<a wicket:id="logoLink">
+										<h1>Technology House Apparel</h1>
+									</a>
 								</header>
 							</div>
 						</div>
@@ -28,7 +30,8 @@
 					
 					<div class="tableCell">
 						<div class="main" wicket:id="main">
-							<div>
+							<wicket:container wicket:id="feedback"></wicket:container>
+							<div class="mainPadding">
 								<wicket:child />
 							</div>
 						</div>
@@ -42,8 +45,7 @@
 								<div class="navigation">
 									<div>
 										<h3 wicket:id="username"></h3>
-										<a><wicket:message key="nav.user.logout" /></a>
-										<a wicket:id="save"><wicket:message key="nav.user.save" /></a>
+										<a wicket:id="logout"><wicket:message key="nav.user.logout" /></a>
 									</div>
 									<div>
 										<h3><wicket:message key="nav.deadline.title" /></h3>
@@ -53,8 +55,8 @@
 									</div>
 									<div wicket:id="admin">
 										<h3><wicket:message key="nav.admin.title" /></h3>
-										<a><wicket:message key="nav.admin.designAdd" /></a>
-										<a><wicket:message key="nav.admin.designEdit" /></a>
+										<a wicket:id="designAdd"><wicket:message key="nav.admin.designAdd" /></a>
+										<a wicket:id="designEdit"><wicket:message key="nav.admin.designEdit" /></a>
 									</div>
 									<div wicket:id="results">
 										<h3><wicket:message key="nav.results.title" /></h3>

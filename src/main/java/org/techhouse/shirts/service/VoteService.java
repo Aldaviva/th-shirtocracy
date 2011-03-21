@@ -8,11 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.techhouse.shirts.data.entities.Member;
 
 @Service
+@Transactional
 public class VoteService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(VoteService.class);
 	
-	@Transactional
 	public void submitBallot(Member member) {
 		//TODO check to make sure the deadline has not passed
 		member.merge();

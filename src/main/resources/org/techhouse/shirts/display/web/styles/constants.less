@@ -1,11 +1,16 @@
+@colors_green: #408040;
+@colors_bluegray: #98a4a6;
+@colors_blue: #406880;
+@colors_red: #804040;
+
 @colors_text_light: #fff;
 @colors_text_medium: hsl(hue(@colors_pillar_background), saturation(@colors_pillar_background), 41%);
 @colors_text_dark: #2b2b2b;
-@colors_pillar_background: #98a4a6;
+@colors_pillar_background: @colors_bluegray;
 @colors_pillar_border: hsl(hue(@colors_pillar_background), saturation(@colors_pillar_background), 50%);
-@colors_page_background: 96%;
-@colors_votebutton_background: #406880;
-@colors_votebutton_background_enabled: #408040;
+@colors_page_background: hsl(0, 0%, 96%);
+@colors_votebutton_background: @colors_blue;
+@colors_votebutton_background_enabled: @colors_green;
 
 @size_pillar_width: 137px;
 @size_pillar_margin: 0px;
@@ -21,6 +26,10 @@
 @size_cells_thumbnailMaxHeight: 274px;
 @size_votebutton: 25px;
 @size_votebutton_gap: @size_cells_gap;
+@size_designform_width: 300px;
+@size_designform_textfieldBorderWidth: 1px;
+@size_designform_fieldGap: 0.8em;
+@size_designform_fieldHeight: 1.5em;
 
 @font_size_navigation_heading: 12px;
 @font_size_navigation_text: 13px;
