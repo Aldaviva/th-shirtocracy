@@ -1,5 +1,5 @@
 /*
- * Generated on Sat Mar 19 15:34:27 PDT 2011 by lesscss-maven-plugin.
+ * Generated on Sun Mar 20 17:49:30 PDT 2011 by lesscss-maven-plugin.
  * Do not modify this file directly, modify the corresponding .less file instead and run 'mvn lesscss:convert'.
  */
 
@@ -61,6 +61,7 @@ body {
   table-layout: fixed;
   height: 100%;
   width: 100%;
+  position: absolute;
 }
 .tableRow {
   display: table-row;
@@ -87,7 +88,8 @@ body {
 .pillar .border {
   border: 1px solid white;
   height: 100%;
-  position: relative;
+  position: absolute;
+  width: 137px;
 }
 .pillar .pillarContent {
   position: absolute;
