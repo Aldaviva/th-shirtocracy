@@ -9,7 +9,7 @@ import org.apache.wicket.model.IModel;
 import org.techhouse.shirts.data.entities.Design;
 import org.techhouse.shirts.data.entities.Member;
 import org.techhouse.shirts.display.web.AuthenticatedWebPage;
-import org.techhouse.shirts.service.security.WicketSession;
+import org.techhouse.shirts.display.web.WicketSession;
 
 public class HomePage extends BasePage implements AuthenticatedWebPage {
 

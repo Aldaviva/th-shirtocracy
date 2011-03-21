@@ -2,17 +2,12 @@ package org.techhouse.shirts.display.web.pages;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.wicket.AttributeModifier;
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.image.Image;
@@ -29,20 +24,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.techhouse.shirts.data.entities.Design;
 import org.techhouse.shirts.data.entities.Member;
-import org.techhouse.shirts.display.web.behaviors.SetCssClassToWicketId;
+import org.techhouse.shirts.display.web.AuthenticatedWebPage;
+import org.techhouse.shirts.display.web.WicketApplication;
+import org.techhouse.shirts.display.web.WicketSession;
+import org.techhouse.shirts.display.web.behaviors.SetCssClassToWicketIdBehavior;
 import org.techhouse.shirts.display.web.components.VoteButton;
 import org.techhouse.shirts.service.VoteService;
 
-public class BallotPage extends SavablePage /* implements AuthenticatedWebPage */ {
+public class BallotPage extends BasePage implements AuthenticatedWebPage {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(BallotPage.class);
 	
 	@SpringBean
 	private VoteService voteService;
 	
-	private final Member member;
-	
-	private final HashMap<Design, Boolean> designToChoiceMap;
+	private final IModel<Member> memberModel;
 	
 	private final IModel<List<Design>> designsModel;
 
@@ -51,8 +47,14 @@ public class BallotPage extends SavablePage /* implements AuthenticatedWebPage *
 	public BallotPage() {
 		super();
 		
-		member = //WicketSession.get().getMember();
-			Member.findMember("ben");
+		LOGGER.info("Constructing new BallotPage");
+		
+		if(WicketApplication.get().isDevelopment()){
+			memberModel = Model.of(Member.findMember("ben"));
+		} else {
+			memberModel = Model.of(WicketSession.get().getMember()); 
+		}
+			
 		
 		designsModel = new LoadableDetachableModel<List<Design>>() {
 			private static final long serialVersionUID = 1L;
@@ -63,21 +65,13 @@ public class BallotPage extends SavablePage /* implements AuthenticatedWebPage *
 			}
 		};
 		
-		designToChoiceMap = setUpDesignToChoiceMap(member);
-		
-		ballotForm = new Form<Member>("ballotForm", Model.of(member)) {
+		ballotForm = new Form<Member>("ballotForm", memberModel) {
 
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			protected void onSubmit() {
-				Collection<Design> selectedDesigns = new ArrayList<Design>(designToChoiceMap.size());
-				for (Entry<Design, Boolean> choice : designToChoiceMap.entrySet()) {
-					if(choice.getValue()){
-						selectedDesigns.add(choice.getKey());
-					}
-				}
-				voteService.submitBallot(getModelObject(), selectedDesigns);
+				voteService.submitBallot(getModelObject());
 			}
 			
 		};
@@ -89,10 +83,11 @@ public class BallotPage extends SavablePage /* implements AuthenticatedWebPage *
 
 			@Override
 			protected void populateItem(final ListItem<Design> item) {
+				LOGGER.info("creating list item for design "+item.getModelObject().hashCode());
 				item.setModel(new CompoundPropertyModel<Design>(item.getModelObject()));
 				
 				item.add(new Image("thumbnail").add(new AttributeModifier("src", new PropertyModel<URL>(item.getModel(), "thumbnail"))));
-				item.add(new Label("name").add(new SetCssClassToWicketId()));
+				item.add(new Label("name").add(new SetCssClassToWicketIdBehavior()));
 				item.add(new Label("artistAndYear", new AbstractReadOnlyModel<String>() {
 
 					private static final long serialVersionUID = 1L;
@@ -106,24 +101,9 @@ public class BallotPage extends SavablePage /* implements AuthenticatedWebPage *
 						split.removeAll(nullInACollection);
 						return StringUtils.join(split, ", ");
 					}
-				}).add(new SetCssClassToWicketId()));
+				}).add(new SetCssClassToWicketIdBehavior()));
 				
-				item.add(new VoteButton("voteButton", new SelectedDesignModel(item.getModel())).add(new SetCssClassToWicketId()));
-			}
-		});
-		
-		addSaveBehavior(new AjaxFormSubmitBehavior(ballotForm, "onclick") {
-			
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			protected void onSubmit(AjaxRequestTarget target) {
-				LOGGER.info("Submitting form");
-			}
-			
-			@Override
-			protected void onError(AjaxRequestTarget target) {
-				LOGGER.error("Error while submitting form");
+				item.add(new VoteButton("voteButton", new SelectedDesignModel(item.getModel())).add(new SetCssClassToWicketIdBehavior()));
 			}
 		});
 	}
@@ -131,36 +111,32 @@ public class BallotPage extends SavablePage /* implements AuthenticatedWebPage *
 	private final class SelectedDesignModel extends Model<Boolean> {
 
 		private static final long serialVersionUID = 1L;
-		private IModel<Design> designModel;
+		private final IModel<Design> designModel;
 
 		public SelectedDesignModel(IModel<Design> designModel) {
 			this.designModel = designModel;
+			LOGGER.info("Creating model for VoteButton for design "+designModel.getObject().hashCode());
 		}
 
 		@Override
 		public Boolean getObject() {
-			return designToChoiceMap.get(designModel.getObject());
+			Design object = designModel.getObject();
+			LOGGER.info("seeing if member is voting for design "+object.hashCode());
+			return memberModel.getObject().getDesigns().contains(object);
 		}
 
 		@Override
 		public void setObject(Boolean value) {
-			designToChoiceMap.put(designModel.getObject(), value);
+			Design object = designModel.getObject();
+			Member member = ballotForm.getModelObject();
+			if(value){
+				LOGGER.info("Setting member to vote for design "+object.hashCode());
+				member.getDesigns().add(object);
+			} else {
+				LOGGER.info("Setting member to not vote for design "+object.hashCode());
+				member.getDesigns().remove(object);
+			}
 		}
 		
-	}
-
-	private HashMap<Design, Boolean> setUpDesignToChoiceMap(Member member) {
-		HashMap<Design, Boolean> map = new HashMap<Design, Boolean>((int) Design.countDesigns());
-		
-		for (Design design : designsModel.getObject()){
-			map.put(design, Boolean.FALSE);
-		}
-		
-		member.getDesigns();
-		for (Design chosenDesign : member.getDesigns()) {
-			map.put(chosenDesign, Boolean.TRUE);
-		}
-		
-		return map;
 	}
 }

@@ -1,4 +1,4 @@
-package org.techhouse.shirts.service.security;
+package org.techhouse.shirts.display.web;
 
 import java.util.Collection;
 

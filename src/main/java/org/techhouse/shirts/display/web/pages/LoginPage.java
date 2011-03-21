@@ -9,7 +9,7 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.util.value.ValueMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.techhouse.shirts.service.security.WicketSession;
+import org.techhouse.shirts.display.web.WicketSession;
 
 public class LoginPage extends WebPage {
 	

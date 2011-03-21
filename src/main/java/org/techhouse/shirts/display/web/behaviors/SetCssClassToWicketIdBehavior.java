@@ -6,7 +6,7 @@ import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.parser.XmlTag;
 
 
-public class SetCssClassToWicketId extends AbstractBehavior{
+public class SetCssClassToWicketIdBehavior extends AbstractBehavior{
 
 	private static final long serialVersionUID = 1L;
 	private static final String ATTRIBUTE = "class";

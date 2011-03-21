@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+	<head>
+		<meta charset="UTF-8">
+	</head>
+	
+	<body>
+		<wicket:extend>
+			<form wicket:id="designEditForm">
+				<input type="text" wicket:id="name" />
+				
+				<label><wicket:message key="label.thumbnail" /><input type="text" wicket:id="thumbnail" /></label>
+				
+				<div class="optional">optional</div>
+				
+				<label><wicket:message key="label.artist" /><input type="text" wicket:id="artist" /></label>
+				<label><wicket:message key="label.year" /><input type="text" wicket:id="year" /></label>
+				<label><wicket:message key="label.photograph" /><input type="text" wicket:id="photograph" /></label>
+				
+				<input type="submit" wicket:message="value:label.submit" />
+				
+				<input type="button" wicket:id="delete" wicket:message="value:label.delete" />
+			</form>
+		</wicket:extend>
+	</body>
+</html>

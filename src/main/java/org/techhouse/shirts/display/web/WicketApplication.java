@@ -1,5 +1,6 @@
 package org.techhouse.shirts.display.web;
 
+import org.apache.wicket.Application;
 import org.apache.wicket.Component;
 import org.apache.wicket.IPageMap;
 import org.apache.wicket.Page;
@@ -15,7 +16,6 @@ import org.apache.wicket.request.RequestParameters;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.techhouse.shirts.display.web.pages.BallotPage;
 import org.techhouse.shirts.display.web.pages.LoginPage;
-import org.techhouse.shirts.service.security.WicketSession;
 
 public class WicketApplication extends WebApplication {
 
@@ -27,31 +27,38 @@ public class WicketApplication extends WebApplication {
 	public void init(){
 		 addComponentInstantiationListener(new SpringComponentInjector(this));
 		 
-		 getSecuritySettings().setAuthorizationStrategy(new IAuthorizationStrategy() {
-			
-			@Override
-			public <T extends Component> boolean isInstantiationAuthorized(Class<T> componentClass) {
-				if (AuthenticatedWebPage.class.isAssignableFrom(componentClass))
-                {
-                    if (((WicketSession)Session.get()).isSignedIn())
-                    {
-                        // okay to proceed
-                        return true;
-                    }
-
-                    // Force sign in
-                    redirectToLoginPage();
-                }
-                return true;
-			}
-			
-			@Override
-			public boolean isActionAuthorized(Component arg0, Action arg1) {
-				return true;
-			}
-		});
+		 if(!isDevelopment()){
+			 getSecuritySettings().setAuthorizationStrategy(new IAuthorizationStrategy() {
+				
+				@Override
+				public <T extends Component> boolean isInstantiationAuthorized(Class<T> componentClass) {
+					if (AuthenticatedWebPage.class.isAssignableFrom(componentClass))
+	                {
+	                    if (((WicketSession)Session.get()).isSignedIn())
+	                    {
+	                        // okay to proceed
+	                        return true;
+	                    }
+	
+	                    // Force sign in
+	                    redirectToLoginPage();
+	                }
+	                return true;
+				}
+				
+				@Override
+				public boolean isActionAuthorized(Component arg0, Action arg1) {
+					return true;
+				}
+			});
+		 }
 	}
 	
+	public static WicketApplication get(){
+		return (WicketApplication) WebApplication.get();
+	}
+	
+
 	private void redirectToLoginPage(){
 		final RequestCycle cycle = RequestCycle.get();
 		final Page requestPage = cycle.getRequest().getPage();
@@ -73,5 +80,9 @@ public class WicketApplication extends WebApplication {
 	@Override
 	public Session newSession(Request request, Response response) {
 		return new WicketSession(request);
+	}
+	
+	public boolean isDevelopment(){
+		return getConfigurationType().equals(Application.DEVELOPMENT);
 	}
 }
