@@ -24,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.techhouse.shirts.data.entities.Design;
 import org.techhouse.shirts.data.entities.Member;
+import org.techhouse.shirts.data.query.SortParam;
 import org.techhouse.shirts.display.web.WicketApplication;
 import org.techhouse.shirts.display.web.behaviors.SetCssClassToWicketIdBehavior;
 import org.techhouse.shirts.display.web.components.VoteButton;
@@ -59,7 +60,7 @@ public class BallotPage extends BasePage implements AuthenticatedWebPage {
 
 			@Override
 			protected List<Design> load() {
-				return Design.listByDateAsc();
+				return Design.findAllDesigns(new SortParam("year", false), new SortParam("name", true)).subList(0, 5);
 			}
 		};
 		
@@ -69,11 +70,17 @@ public class BallotPage extends BasePage implements AuthenticatedWebPage {
 
 			@Override
 			protected void onSubmit() {
-				voteService.submitBallot(getModelObject());
+//				LOGGER.info("{} is now voting for {}.", getModelObject().getName(), StringUtils.join(getModelObject().getDesigns(), ", "));
+				setModelObject(voteService.submitBallot(getModelObject()));
+				
+//				LOGGER.info("Redirecting to BallotPage");
+//				setResponsePage(BallotPage.class);
 			}
 			
 		};
 		add(ballotForm);
+		
+//		LOGGER.info("{} is now voting for {}.", ballotForm.getModelObject().getName(), StringUtils.join(ballotForm.getModelObject().getDesigns(), ", "));
 		
 		ballotForm.add(new ListView<Design>("designListView", designsModel) {
 

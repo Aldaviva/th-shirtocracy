@@ -8,7 +8,7 @@
 		<wicket:extend>
 			<form wicket:id="ballotForm">
 				<div class="cells">
-					<div wicket:id="designListView">
+					<div wicket:id="designListView" class="cell">
 						<div>
 							<div class="thumbnail">
 								<img wicket:id="thumbnail" />
@@ -21,6 +21,7 @@
 					</div>
 					<div class="clear"></div>
 				</div>
+				<div><input type="submit" wicket:message="value:label.submit" /></div>
 			</form>
 		</wicket:extend>
 	</body>

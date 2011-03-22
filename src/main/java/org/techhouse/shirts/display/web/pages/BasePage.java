@@ -3,6 +3,7 @@ package org.techhouse.shirts.display.web.pages;
 import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.AbstractReadOnlyModel;
@@ -16,15 +17,7 @@ public abstract class BasePage extends HtmlPage {
 	public BasePage() {
 		super();
 		
-		add(new Link<Void>("logoLink"){
-
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void onClick() {
-				setResponsePage(WicketApplication.get().getHomePage());
-			}
-		});
+		add(new BookmarkablePageLink<BallotPage>("logoLink", WicketApplication.get().getHomePage()));
 		
 		add(new FeedbackPanel("feedback"){
 

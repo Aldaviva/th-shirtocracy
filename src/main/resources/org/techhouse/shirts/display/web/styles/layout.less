@@ -27,12 +27,17 @@ body {
 	display: table-cell;
 	vertical-align: top;
 	height: 100%;
+	
+	/*&.center {
+		width: 100%;
+		padding: 0 @size_pillar_width;
+	}*/
 }
 
 .main {
 	.background-image("layout/background_top_shadow.png");
 	background-repeat: repeat-x;
-	height: 100%;
+	min-height: 100%; //height makes opera do that stupid scrolling cutoff
 	width: 100%;
 	position: relative;
 	
@@ -46,19 +51,28 @@ a, a:visited {
 	color: @colors_blue;
 }
 
+.clear {
+	clear: both;
+	float: none;
+}
+
 .pillar {
 	border: @size_pillar_outerBorderWidth solid @colors_pillar_border;
 	color: @colors_text_light;
 	background-color: @colors_pillar_background;
 	width: @size_pillar_width + @size_pillar_innerBorderWidth;
+	position: relative;
 	
 	.border {
 		border: @size_pillar_innerBorderWidth solid white;
 		height: 100%;
-		position: absolute;
+		position: relative; //absolute makes firefox clamp it to window height, relative makes opera clamp it to window height
+		
 		width: @size_pillar_width;
 		//background-color: red;
 	}
+	
+	
 	
 	.pillarContent {
 		position: absolute;
@@ -85,9 +99,9 @@ a, a:visited {
 	&.right {
 		right: 0;
 		
-		#border > .solid(left);
+		#border > .only(left);
 		.border {
-			#border > .solid(left);
+			#border > .only(left);
 		}
 		
 		.vignette {
@@ -104,9 +118,9 @@ a, a:visited {
 	&.left {
 		left: 0;
 		
-		#border > .solid(right);
+		#border > .only(right);
 		.border {
-			#border > .solid(right);	
+			#border > .only(right);	
 		}
 		
 		.vignette {
@@ -120,6 +134,21 @@ a, a:visited {
 		}
 	}
 }
+
+@media all and (-webkit-min-device-pixel-ratio:10000),not all and (-webkit-min-device-pixel-ratio:0) {
+	.pillar, .pillar .border {
+		position: absolute;
+	}	
+}
+
+/*
+*>.pillar {
+	position: relative;
+}
+*>.pillar .border {
+	position: relative;
+}
+*/
 
 header{
 	display: block;

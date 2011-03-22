@@ -13,10 +13,11 @@ public class VoteService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(VoteService.class);
 	
-	public void submitBallot(Member member) {
+	public Member submitBallot(Member member) {
 		//TODO check to make sure the deadline has not passed
-		member.merge();
+		member = member.merge();
 		LOGGER.info("{} is now voting for {}.", member.getName(), StringUtils.join(member.getDesigns(), ", "));
+		return member;
 	}
 	
 }

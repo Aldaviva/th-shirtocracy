@@ -25,7 +25,7 @@ public class Member implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
+	@Id
     private String name;
 
     @NotNull
@@ -40,4 +40,5 @@ public class Member implements Serializable {
     public boolean isVotingFor(Design design){
     	return designs.contains(design);
     }
+    
 }

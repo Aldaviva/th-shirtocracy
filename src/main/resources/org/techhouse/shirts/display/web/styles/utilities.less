@@ -2,18 +2,26 @@
 @import "typography.less";
 
 #border {
-	.solid (right) {
+	.only (right) {
 		border-top-style: none;
 		border-bottom-style: none;
 		border-left-style: none;
 	}
-	.solid (left) {
+	.only (left) {
 		border-top-style: none;
 		border-right-style: none;
 		border-bottom-style: none;
 	}
-	.solid (top, bottom) {
+	.only (top, bottom) {
 		border-right-style: none;
+		border-left-style: none;
+	}
+	.only (top, right) {
+		border-bottom-style: none;
+		border-left-style: none;
+	}
+	.only (right, bottom) {
+		border-top-style: none;
 		border-left-style: none;
 	}
 	

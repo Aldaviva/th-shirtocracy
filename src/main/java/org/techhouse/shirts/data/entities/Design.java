@@ -16,37 +16,48 @@ import javax.validation.constraints.NotNull;
 import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
+import org.techhouse.shirts.data.query.QueryExtras;
+import org.techhouse.shirts.data.query.SortParam;
 
 @RooJavaBean
 @RooToString
 @RooEntity
 public class Design implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private String name;
+	private String name;
 
-    @NotNull
-    private URL thumbnail;
+	@NotNull
+	private URL thumbnail;
 
-    private URL photograph;
+	private URL photograph;
 
-    private String artist;
+	private String artist;
 
-    @Min(1985L)
-    @Max(2021L)
-    private Integer year;
+	@Min(1985L)
+	@Max(2021L)
+	private Integer year;
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "designs") //TODO probably don't want to cascade all
-    private Set<Member> members = new HashSet<Member>();
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "designs")
+	// TODO probably don't want to cascade all
+	private Set<Member> members = new HashSet<Member>();
 
-    @Transient
-    public Long countVotes() {
-    	return (long) members.size();
-    }
+	@Transient
+	public Long countVotes() {
+		return (long) members.size();
+	}
 
+	public static List<Design> findAllDesigns(final SortParam... sortParams) {
+		return QueryExtras.list(Design.class, sortParams, entityManager());
+	}
+	
+	/*
+	public static List<Design> listByNameAsc() {
+		return entityManager().createQuery("select d from Design d order by d.name asc", Design.class).getResultList();
+	}
 
 	public static List<Design> listByDateAsc() {
 		return entityManager().createQuery("select d from Design d order by d.year desc, d.name asc", Design.class).getResultList();
-	}
+	}*/
 }

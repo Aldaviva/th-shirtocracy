@@ -1,5 +1,5 @@
 /*
- * Generated on Sun Mar 20 17:49:30 PDT 2011 by lesscss-maven-plugin.
+ * Generated on Mon Mar 21 21:45:17 PDT 2011 by lesscss-maven-plugin.
  * Do not modify this file directly, modify the corresponding .less file instead and run 'mvn lesscss:convert'.
  */
 
@@ -70,11 +70,16 @@ body {
   display: table-cell;
   vertical-align: top;
   height: 100%;
+  /*&.center {
+		width: 100%;
+		padding: 0 @size_pillar_width;
+	}*/
+
 }
 .main {
   background-image: url(../images/layout/background_top_shadow.png);
   background-repeat: repeat-x;
-  height: 100%;
+  min-height: 100%;
   width: 100%;
   position: relative;
 }
@@ -85,16 +90,21 @@ a, a:visited {
   text-decoration: none;
   color: #406880;
 }
+.clear {
+  clear: both;
+  float: none;
+}
 .pillar {
   border: 2px solid #778688;
   color: #ffffff;
   background-color: #98a4a6;
   width: 138px;
+  position: relative;
 }
 .pillar .border {
   border: 1px solid white;
   height: 100%;
-  position: absolute;
+  position: relative;
   width: 137px;
 }
 .pillar .pillarContent {
@@ -156,6 +166,19 @@ a, a:visited {
 .pillar.left .vignette.bottom {
   background-position: 100% 0%;
 }
+@media all and (-webkit-min-device-pixel-ratio:10000),not all and (-webkit-min-device-pixel-ratio:0) {
+  .pillar, .pillar .border {
+    position: absolute;
+  }
+}
+/*
+*>.pillar {
+	position: relative;
+}
+*>.pillar .border {
+	position: relative;
+}
+*/
 header {
   display: block;
   padding-top: 15px;
@@ -233,28 +256,31 @@ h2 {
   color: #ffffff;
   padding: 2px 6px;
 }
-#BallotPage .cells > div {
+#BallotPage .cells .cell {
   float: left;
-  width: 20%;
   min-width: 324px;
+  border: 1px solid #98a4a6;
+  border-top-style: none;
+  border-left-style: none;
+  margin: -1px -1px 0 0;
 }
-#BallotPage .cells > div > div {
+#BallotPage .cells .cell > div {
   text-align: center;
   height: 316px;
   position: relative;
   padding: 17px;
 }
-#BallotPage .cells > div > div .thumbnail {
+#BallotPage .cells .cell > div .thumbnail {
   height: 274px;
 }
-#BallotPage .cells > div > div .thumbnail img {
+#BallotPage .cells .cell > div .thumbnail img {
   max-height: 100%;
   max-width: 100%;
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
-#BallotPage .cells > div > div .name {
+#BallotPage .cells .cell > div .name {
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -262,7 +288,7 @@ h2 {
   font-family: "Univers Condensed";
   margin-top: 4px;
 }
-#BallotPage .cells > div > div .artistAndYear {
+#BallotPage .cells .cell > div .artistAndYear {
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -270,7 +296,7 @@ h2 {
   font-style: italic;
   opacity: 0.75;
 }
-#BallotPage .cells > div > div .voteButton {
+#BallotPage .cells .cell > div .voteButton {
   position: absolute;
   bottom: 17px;
   left: 17px;
@@ -280,28 +306,70 @@ h2 {
   background: #406880 none no-repeat 50% 50%;
   background-image: url(../images/voteButton_check.png);
 }
-#BallotPage .cells > div > div .voteButton.selected {
+#BallotPage .cells .cell > div .voteButton.selected {
   background-color: #408040;
   background-image: url(../images/voteButton_check_enabled.png);
 }
-@media all and (max-width: 1964px) {
-  #BallotPage .cells > div {
+@media all and (min-width: 1965px) {
+  #BallotPage .cells .cell {
+    width: 20%;
+  }
+  #BallotPage .cells :nth-child(5n) {
+    border-right-color: transparent;
+  }
+  #BallotPage .cells :nth-last-child(1),
+  #BallotPage .cells :nth-last-child(2),
+  #BallotPage .cells :nth-last-child(3),
+  #BallotPage .cells :nth-last-child(4),
+  #BallotPage .cells :nth-last-child(5) {
+    border-bottom-color: transparent;
+  }
+}
+@media all and (max-width: 1964px) and (min-width: 1641px) {
+  #BallotPage .cells .cell {
     width: 25%;
   }
-}
-@media all and (max-width: 1640px) {
-  #BallotPage .cells > div {
-    width: 33%;
+  #BallotPage .cells :nth-child(4n) {
+    border-right-color: transparent;
+  }
+  #BallotPage .cells :nth-last-child(1),
+  #BallotPage .cells :nth-last-child(2),
+  #BallotPage .cells :nth-last-child(3),
+  #BallotPage .cells :nth-last-child(4) {
+    border-bottom-color: transparent;
   }
 }
-@media all and (max-width: 1316px) {
-  #BallotPage .cells > div {
+@media all and (max-width: 1640px) and (min-width: 1317px) {
+  #BallotPage .cells .cell {
+    width: 33%;
+  }
+  #BallotPage .cells :nth-child(3n) {
+    border-right-color: transparent;
+  }
+  #BallotPage .cells :nth-last-child(1), #BallotPage .cells :nth-last-child(2), #BallotPage .cells :nth-last-child(3) {
+    border-bottom-color: transparent;
+  }
+}
+@media all and (max-width: 1316px) and (min-width: 993px) {
+  #BallotPage .cells .cell {
     width: 50%;
+  }
+  #BallotPage .cells :nth-child(2n) {
+    border-right-color: transparent;
+  }
+  #BallotPage .cells :nth-last-child(1), #BallotPage .cells :nth-last-child(2) {
+    border-bottom-color: transparent;
   }
 }
 @media all and (max-width: 992px) {
-  #BallotPage .cells > div {
+  #BallotPage .cells .cell {
     width: 100%;
+  }
+  #BallotPage .cells :nth-child(1n) {
+    border-right-color: transparent;
+  }
+  #BallotPage .cells :nth-last-child(1) {
+    border-bottom-color: transparent;
   }
 }
 #DesignEditPage form {
