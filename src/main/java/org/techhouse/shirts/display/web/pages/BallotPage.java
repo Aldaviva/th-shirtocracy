@@ -60,7 +60,7 @@ public class BallotPage extends BasePage implements AuthenticatedWebPage {
 
 			@Override
 			protected List<Design> load() {
-				return Design.findAllDesigns(new SortParam("year", false), new SortParam("name", true)).subList(0, 5);
+				return Design.findAllDesigns(new SortParam("year", false), new SortParam("name", true));
 			}
 		};
 		

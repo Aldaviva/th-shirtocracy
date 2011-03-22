@@ -70,11 +70,6 @@ body {
   display: table-cell;
   vertical-align: top;
   height: 100%;
-  /*&.center {
-		width: 100%;
-		padding: 0 @size_pillar_width;
-	}*/
-
 }
 .main {
   background-image: url(../images/layout/background_top_shadow.png);
@@ -170,15 +165,11 @@ a, a:visited {
   .pillar, .pillar .border {
     position: absolute;
   }
+  .tableCell.center {
+    width: 100%;
+    padding: 0 137px;
+  }
 }
-/*
-*>.pillar {
-	position: relative;
-}
-*>.pillar .border {
-	position: relative;
-}
-*/
 header {
   display: block;
   padding-top: 15px;
@@ -256,6 +247,29 @@ h2 {
   color: #ffffff;
   padding: 2px 6px;
 }
+#BallotPage form input[type=submit] {
+  width: 300px;
+  padding: 0.4em;
+  font-family: "Univers Condensed";
+  font-size: 1.125em;
+  margin-top: 0.8em;
+  cursor: pointer;
+  color: #ffffff;
+  background-color: #408040;
+  border: 2px solid #234623;
+  border-radius: 1px;
+  outline: 1px solid white;
+  outline-offset: -3px;
+  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.75), inset -1px -1px 3px rgba(0, 0, 0, 0.75);
+  margin: 32px auto 0;
+  display: block;
+}
+#BallotPage form input[type=submit]:hover {
+  background-color: #4e9b4e;
+}
+#BallotPage form input[type=submit]:active {
+  background-color: #326532 !important;
+}
 #BallotPage .cells .cell {
   float: left;
   min-width: 324px;
@@ -309,6 +323,9 @@ h2 {
 #BallotPage .cells .cell > div .voteButton.selected {
   background-color: #408040;
   background-image: url(../images/voteButton_check_enabled.png);
+}
+#BallotPage .cells :last-child {
+  border-right-color: transparent;
 }
 @media all and (min-width: 1965px) {
   #BallotPage .cells .cell {
@@ -414,31 +431,45 @@ h2 {
 }
 #DesignEditPage form input.save {
   width: 300px;
-  border: 2px solid #234623;
-  background-color: #408040;
-  color: #ffffff;
   padding: 0.4em;
   font-family: "Univers Condensed";
   font-size: 1.125em;
   margin-top: 0.8em;
   cursor: pointer;
+  color: #ffffff;
+  background-color: #408040;
+  border: 2px solid #234623;
+  border-radius: 1px;
+  outline: 1px solid white;
+  outline-offset: -3px;
+  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.75), inset -1px -1px 3px rgba(0, 0, 0, 0.75);
 }
 #DesignEditPage form input.save:hover {
   background-color: #4e9b4e;
 }
+#DesignEditPage form input.save:active {
+  background-color: #326532 !important;
+}
 #DesignEditPage form input.delete {
   width: 300px;
-  border: 2px solid #462323;
-  background-color: #804040;
-  color: #ffffff;
   padding: 0.4em;
   font-family: "Univers Condensed";
   font-size: 1.125em;
   margin-top: 0.8em;
   cursor: pointer;
+  color: #ffffff;
+  background-color: #804040;
+  border: 2px solid #462323;
+  border-radius: 1px;
+  outline: 1px solid white;
+  outline-offset: -3px;
+  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.75), inset -1px -1px 3px rgba(0, 0, 0, 0.75);
 }
 #DesignEditPage form input.delete:hover {
   background-color: #9b4e4e;
+}
+#DesignEditPage form input.delete:active {
+  background-color: #653232 !important;
 }
 #DesignEditPage form .hr {
   text-align: center;

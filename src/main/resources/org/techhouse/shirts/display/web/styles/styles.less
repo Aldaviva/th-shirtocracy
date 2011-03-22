@@ -1,7 +1,46 @@
 @charset "utf-8";
 @import "layout.less";
 
+.button (@color: hsl(0, 0%, 50%)) {
+	width: @size_designform_width;
+	padding: 0.4em;
+	font-family: "Univers Condensed";
+	#font>.size(18px);
+	margin-top: @size_designform_fieldGap;
+	cursor: pointer;
+	color: @colors_text_light;
+	background-color: @color;
+	border: 2px solid darken(@color, 17%);
+	border-radius: 1px; //opera hack
+	outline: 1px solid white;
+	outline-offset: -3px;
+	box-shadow: inset 1px 1px 3px rgba(0,0,0,0.75), inset -1px -1px 3px rgba(0,0,0,0.75);
+	
+	&:hover {
+		background-color: lighten(@color, 8%);
+	}
+	&:active {
+		background-color: darken(@color, 8%) !important;
+	}
+}
+		
+		
 #BallotPage {
+	.lastCell (column) {
+		border-right-color: transparent;
+	}
+	.lastCell (row) {
+		border-bottom-color: transparent;
+	}
+	
+	form {
+		input[type=submit] {
+			.button(@colors_green);
+			margin: @size_main_gap auto 0;
+			display: block;
+		}
+	}
+	
 	.cells {
 		.cell {
 			float: left;
@@ -58,14 +97,13 @@
 				}
 			}
 		}
+		
+		:last-child {
+			.lastCell(column);
+		}
 	}
 	
-	.lastCell (column) {
-		border-right-color: transparent;
-	}
-	.lastCell (row) {
-		border-bottom-color: transparent;
-	}
+	
 	
 	@media all and (min-width: 1965px) {
 		#BallotPage .cells {
@@ -183,22 +221,6 @@
 			.pageTitle;
 			float: none;
 			width: @size_designform_width - (2 * @size_designform_textfieldBorderWidth);
-		}
-		
-		.button (@color: hsl(0, 0%, 50%)) {
-			width: @size_designform_width;
-			border: 2px solid darken(@color, 17%);
-			background-color: @color;
-			color: @colors_text_light;
-			padding: 0.4em;
-			font-family: "Univers Condensed";
-			#font>.size(18px);
-			margin-top: @size_designform_fieldGap;
-			cursor: pointer;
-			
-			&:hover {
-				background-color: lighten(@color, 8%);
-			}
 		}
 		
 		input.save {

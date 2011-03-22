@@ -27,11 +27,6 @@ body {
 	display: table-cell;
 	vertical-align: top;
 	height: 100%;
-	
-	/*&.center {
-		width: 100%;
-		padding: 0 @size_pillar_width;
-	}*/
 }
 
 .main {
@@ -135,20 +130,17 @@ a, a:visited {
 	}
 }
 
+//Beware, Opera hack
 @media all and (-webkit-min-device-pixel-ratio:10000),not all and (-webkit-min-device-pixel-ratio:0) {
 	.pillar, .pillar .border {
 		position: absolute;
-	}	
+	}
+	
+	.tableCell.center {
+		width: 100%;
+		padding: 0 @size_pillar_width;
+	}
 }
-
-/*
-*>.pillar {
-	position: relative;
-}
-*>.pillar .border {
-	position: relative;
-}
-*/
 
 header{
 	display: block;
