@@ -20,7 +20,8 @@ body {
 }
 
 .tableRow {
-	display: table-row;	
+	display: table-row;
+	overflow: hidden;
 }
 	
 .tableCell {
@@ -52,22 +53,16 @@ a, a:visited {
 }
 
 .pillar {
-	border: @size_pillar_outerBorderWidth solid @colors_pillar_border;
+	outline: @size_pillar_outerBorderWidth solid @colors_pillar_border;
+	outline-offset: 0px;
 	color: @colors_text_light;
 	background-color: @colors_pillar_background;
+	background-image: url("../images/layout/vignette.png"), url("../images/layout/vignette.png");
+	background-repeat: no-repeat;
 	width: @size_pillar_width + @size_pillar_innerBorderWidth;
 	position: relative;
-	
-	.border {
-		border: @size_pillar_innerBorderWidth solid white;
-		height: 100%;
-		position: relative; //absolute makes firefox clamp it to window height, relative makes opera clamp it to window height
-		
-		width: @size_pillar_width;
-		//background-color: red;
-	}
-	
-	
+	height: 100%; //for firefox vignettes
+	border: 1px solid white;
 	
 	.pillarContent {
 		position: absolute;
@@ -75,58 +70,16 @@ a, a:visited {
 		padding: @size_pillar_innerContentPadding;
 	}
 	
-	.vignette {
-		position: absolute;
-		width: 268px;
-		height: 268px;
-		.background-image("layout/vignette.png");
-		background-repeat: no-repeat;
-		opacity: @opacity_vignette;
-	
-		&.top {
-			top: 0;
-		}
-		&.bottom {
-			bottom: 0;
-		}
-	}
-	
 	&.right {
 		right: 0;
-		
+		background-position: (-1 * @size_vignette_radius + @size_pillar_width) (-1 * @size_vignette_radius);
 		#border > .only(left);
-		.border {
-			#border > .only(left);
-		}
-		
-		.vignette {
-			right: 0;
-			&.top {
-				background-position: 0% 100%;
-			}
-			&.bottom {
-				background-position: 0% 0%;
-			}
-		}
 	}
 	
 	&.left {
 		left: 0;
-		
+		background-position: (-1 * @size_vignette_radius) (-1 * @size_vignette_radius);
 		#border > .only(right);
-		.border {
-			#border > .only(right);	
-		}
-		
-		.vignette {
-			left: 0;
-			&.top {
-				background-position: 100% 100%;
-			}
-			&.bottom {
-				background-position: 100% 0%;
-			}
-		}
 	}
 }
 
@@ -164,7 +117,6 @@ header{
 	h3 {
 		color: @colors_text_medium;
 		text-transform: uppercase;
-		//margin-left: -1 * @size_nav_linkLeftGap;
 		font-family: "Univers Condensed";
 		font-weight: bold;
 		#font>.size(@font_size_navigation_heading, @font_size_navigation_text);

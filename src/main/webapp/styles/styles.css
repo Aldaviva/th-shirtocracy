@@ -65,6 +65,7 @@ body {
 }
 .tableRow {
   display: table-row;
+  overflow: hidden;
 }
 .tableCell {
   display: table-cell;
@@ -90,76 +91,35 @@ a, a:visited {
   float: none;
 }
 .pillar {
-  border: 2px solid #778688;
+  outline: 2px solid #778688;
+  outline-offset: 0px;
   color: #ffffff;
   background-color: #98a4a6;
+  background-image: url("../images/layout/vignette.png"), url("../images/layout/vignette.png");
+  background-repeat: no-repeat;
   width: 138px;
   position: relative;
-}
-.pillar .border {
-  border: 1px solid white;
   height: 100%;
-  position: relative;
-  width: 137px;
+  border: 1px solid white;
 }
 .pillar .pillarContent {
   position: absolute;
   width: 115px;
   padding: 10px;
 }
-.pillar .vignette {
-  position: absolute;
-  width: 268px;
-  height: 268px;
-  background-image: url(../images/layout/vignette.png);
-  background-repeat: no-repeat;
-  opacity: 0.67;
-}
-.pillar .vignette.top {
-  top: 0;
-}
-.pillar .vignette.bottom {
-  bottom: 0;
-}
 .pillar.right {
   right: 0;
+  background-position: -131px -268px;
   border-top-style: none;
   border-right-style: none;
   border-bottom-style: none;
-}
-.pillar.right .border {
-  border-top-style: none;
-  border-right-style: none;
-  border-bottom-style: none;
-}
-.pillar.right .vignette {
-  right: 0;
-}
-.pillar.right .vignette.top {
-  background-position: 0% 100%;
-}
-.pillar.right .vignette.bottom {
-  background-position: 0% 0%;
 }
 .pillar.left {
   left: 0;
+  background-position: -268px -268px;
   border-top-style: none;
   border-bottom-style: none;
   border-left-style: none;
-}
-.pillar.left .border {
-  border-top-style: none;
-  border-bottom-style: none;
-  border-left-style: none;
-}
-.pillar.left .vignette {
-  left: 0;
-}
-.pillar.left .vignette.top {
-  background-position: 100% 100%;
-}
-.pillar.left .vignette.bottom {
-  background-position: 100% 0%;
 }
 @media all and (-webkit-min-device-pixel-ratio:10000),not all and (-webkit-min-device-pixel-ratio:0) {
   .pillar, .pillar .border {
