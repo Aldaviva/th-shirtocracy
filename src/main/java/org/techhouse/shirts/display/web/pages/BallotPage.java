@@ -20,8 +20,6 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.techhouse.shirts.data.entities.Design;
 import org.techhouse.shirts.data.entities.Member;
 import org.techhouse.shirts.data.query.SortParam;
@@ -34,8 +32,6 @@ import org.techhouse.shirts.service.VoteService;
 
 public class BallotPage extends BasePage implements AuthenticatedWebPage {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(BallotPage.class);
-	
 	@SpringBean
 	private VoteService voteService;
 	
@@ -70,17 +66,13 @@ public class BallotPage extends BasePage implements AuthenticatedWebPage {
 
 			@Override
 			protected void onSubmit() {
-//				LOGGER.info("{} is now voting for {}.", getModelObject().getName(), StringUtils.join(getModelObject().getDesigns(), ", "));
 				setModelObject(voteService.submitBallot(getModelObject()));
-				
-//				LOGGER.info("Redirecting to BallotPage");
-//				setResponsePage(BallotPage.class);
+				info(getString("feedback.submitted.success"));
 			}
+
 			
 		};
 		add(ballotForm);
-		
-//		LOGGER.info("{} is now voting for {}.", ballotForm.getModelObject().getName(), StringUtils.join(ballotForm.getModelObject().getDesigns(), ", "));
 		
 		ballotForm.add(new ListView<Design>("designListView", designsModel) {
 
@@ -132,10 +124,8 @@ public class BallotPage extends BasePage implements AuthenticatedWebPage {
 			Design object = designModel.getObject();
 			Member member = ballotForm.getModelObject();
 			if(value){
-				LOGGER.info("Setting member to vote for design "+object.hashCode());
 				member.getDesigns().add(object);
 			} else {
-				LOGGER.info("Setting member to not vote for design "+object.hashCode());
 				member.getDesigns().remove(object);
 			}
 		}

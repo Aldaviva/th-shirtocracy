@@ -167,19 +167,27 @@ h2 {
 	top: 8px;
 	width: 100%;
 	
+	.feedbackLevel(@bgColor, @textColor: @colors_text_light){
+		background-color: @bgColor;
+		color: @textColor;
+	}
+	
 	li {
 		text-align: center;
 		#font>.size(12px);
 		
 		span {
+			padding: 2px 6px;
 			#border>.radius(3px);
 		}
 	}
 	
 	span.feedbackPanelERROR {
-		background-color: @colors_red;
-		color: @colors_text_light;
-		padding: 2px 6px;
+		.feedbackLevel(@colors_red);
+	}
+	
+	span.feedbackPanelINFO {
+		.feedbackLevel(@colors_green);
 	}
 	
 }

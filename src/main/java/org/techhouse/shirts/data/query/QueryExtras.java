@@ -4,9 +4,14 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 public class QueryExtras {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(QueryExtras.class);
+	
 	private QueryExtras() {}
 
 	public static <T> List<T> list(Class<T> entityClass, SortParam[] sortParams, EntityManager entityManager) {
@@ -14,6 +19,7 @@ public class QueryExtras {
 		final char rowSymbol = entityClassName.toLowerCase().charAt(0);
 		
 		String queryString = "select "+rowSymbol+" from "+entityClassName+" "+rowSymbol + getOrderBy(sortParams, rowSymbol);
+		LOGGER.info(queryString);
 		return entityManager.createQuery(queryString, entityClass).getResultList();
 	}
 	
