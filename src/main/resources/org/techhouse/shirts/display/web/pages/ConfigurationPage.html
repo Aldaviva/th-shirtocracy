@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+	<head>
+		<meta charset="UTF-8">
+	</head>
+	
+	<body>
+		<wicket:extend>
+			<form wicket:id="configurationForm">
+				<h2><wicket:message key="heading" /></h2>
+				
+				<div class="hr"><span><wicket:message key="label.required" /></span></div>
+				
+				<label class="datetimefield"><wicket:message key="label.deadline" /><span wicket:id="deadline"></span></label>
+				
+				<div class="hr"></div>
+				
+				<input type="submit" wicket:message="value:label.submitExisting" class="save" />
+			</form>
+		</wicket:extend>
+	</body>
+</html>

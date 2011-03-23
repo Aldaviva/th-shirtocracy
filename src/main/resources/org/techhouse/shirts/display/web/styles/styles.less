@@ -9,19 +9,22 @@
 	margin-top: @size_designform_fieldGap;
 	cursor: pointer;
 	color: @colors_text_light;
-	background-color: @color;
 	border: 2px solid darken(@color, 17%);
 	border-radius: 1px; //opera hack
 	outline: 1px solid white;
 	outline-offset: -3px;
 	box-shadow: inset 1px 1px 3px rgba(0,0,0,0.75), inset -1px -1px 3px rgba(0,0,0,0.75);
 	
-	&:hover {
-		background-color: lighten(@color, 8%);
+	.mouseStateColors(@color){
+		background-color: @color;
+		&:hover {
+			background-color: lighten(@color, 8%);
+		}
+		&:active {
+			background-color: darken(@color, 8%) !important;
+		}
 	}
-	&:active {
-		background-color: darken(@color, 8%) !important;
-	}
+	.mouseStateColors(@color);
 }
 		
 		
@@ -88,13 +91,15 @@
 					box-sizing: content-box;
 					padding: 0;
 					border: 2px solid white;
-					background: @colors_votebutton_background none no-repeat 50% 50%;
+					cursor: pointer;
+					background-repeat: no-repeat;
+					background-position: 50% 50%;
 					.background-image("voteButton_check.png");
-					
+					.button.mouseStateColors(@colors_votebutton_background);
 					
 					&.selected {
-						background-color: @colors_votebutton_background_enabled;
 						.background-image("voteButton_check_enabled.png");
+						.button.mouseStateColors(@colors_votebutton_background_enabled);
 					}
 				}
 			}
@@ -188,7 +193,7 @@
 	}
 }
 
-#DesignEditPage {
+#DesignEditPage, #ConfigurationPage {
 	form {
 		.form;
 		
@@ -209,14 +214,18 @@
 			}
 		}
 		
-		input[type=text] {
-			float: right;
+		input[type=text], select {
 			height: @size_designform_fieldHeight;
-			width: 66.6667%;
-			margin-top: -1 * @size_designform_textfieldBorderWidth;
 			border-width: @size_designform_textfieldBorderWidth;
 			border-style: solid;
 			border-color: #aeaeae #c8c8c8 #e3e3e3;
+			margin-top: -1 * @size_designform_textfieldBorderWidth;
+		}
+		
+		input[type=text] {
+			float: right;
+			width: 66.6667%;
+			
 		}
 		
 		.name[type=text] {
@@ -246,6 +255,23 @@
 			> span {
 				background-color: white;
 				padding: 0 1em;
+			}
+		}
+		
+		.datetimefield {
+			.deadline {
+				float: right;
+				input[name='deadline:date'] {
+					width: 58px;
+				}
+				input[name='deadline:hours'], input[name='deadline:minutes'] {
+					width: 27px;
+				}
+			}
+		
+			input {
+				float: none !important;
+				width: auto;
 			}
 		}
 	}

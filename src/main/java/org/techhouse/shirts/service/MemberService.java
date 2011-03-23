@@ -8,11 +8,11 @@ import org.techhouse.shirts.data.entities.Member;
 import org.techhouse.shirts.data.enums.Role;
 
 @Service
+@Transactional
 public class MemberService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(MemberService.class);
 	
-	@Transactional
 	public Member createMember(String name){
 		Member member = Member.findMember(name);
 		if(member != null){

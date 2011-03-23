@@ -9,8 +9,6 @@ import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.validator.RangeValidator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.techhouse.shirts.data.entities.Design;
 import org.techhouse.shirts.display.web.WicketApplication;
 import org.techhouse.shirts.display.web.behaviors.PlaceholderBehavior;
@@ -21,8 +19,6 @@ import org.techhouse.shirts.service.DesignService;
 
 public class DesignEditPage extends BasePage implements AdminPage {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(DesignEditPage.class);
-	
 	private Form<Design> form;
 	private final boolean isNewDesign;
 	
@@ -45,10 +41,8 @@ public class DesignEditPage extends BasePage implements AdminPage {
 
 			@Override
 			protected void onSubmit() {
-				LOGGER.info("Saving...");
 				designService.save(getModelObject());
 				setResponsePage(WicketApplication.get().getHomePage());
-				LOGGER.info("Saved");
 			}
 
 			@Override

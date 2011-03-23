@@ -1,23 +1,26 @@
 package org.techhouse.shirts.service;
 
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.techhouse.shirts.data.entities.Member;
+import org.techhouse.shirts.service.ServiceException.DeadlinePassedException;
 
 @Service
 @Transactional
 public class VoteService {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(VoteService.class);
+	@Autowired
+	private DeadlineService deadlineService;
 	
-	public Member submitBallot(Member member) {
-		//TODO check to make sure the deadline has not passed
-		member = member.merge();
-		LOGGER.info("{} is now voting for {}.", member.getName(), StringUtils.join(member.getDesigns(), ", "));
+	public Member submitBallot(Member member) throws DeadlinePassedException {
+		if(!deadlineService.hasDeadlinePassed()){
+			member = member.merge();
+		} else {
+			throw new ServiceException.DeadlinePassedException();
+		}
 		return member;
+		
 	}
 	
 }

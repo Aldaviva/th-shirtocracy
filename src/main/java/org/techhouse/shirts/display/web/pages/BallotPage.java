@@ -26,11 +26,12 @@ import org.techhouse.shirts.data.query.SortParam;
 import org.techhouse.shirts.display.web.WicketApplication;
 import org.techhouse.shirts.display.web.behaviors.SetCssClassToWicketIdBehavior;
 import org.techhouse.shirts.display.web.components.VoteButton;
-import org.techhouse.shirts.display.web.security.AuthenticatedWebPage;
+import org.techhouse.shirts.display.web.security.DeadlinePage;
 import org.techhouse.shirts.display.web.security.WicketSession;
+import org.techhouse.shirts.service.ServiceException.DeadlinePassedException;
 import org.techhouse.shirts.service.VoteService;
 
-public class BallotPage extends BasePage implements AuthenticatedWebPage {
+public class BallotPage extends BasePage implements DeadlinePage {
 
 	@SpringBean
 	private VoteService voteService;
@@ -41,6 +42,16 @@ public class BallotPage extends BasePage implements AuthenticatedWebPage {
 
 	private final Form<Member> ballotForm;
 	
+	@Override
+	public void prepareForRender(boolean setRenderingFlag) {
+		super.prepareForRender(setRenderingFlag);
+	}
+
+	@Override
+	protected void onBeforeRender() {
+		super.onBeforeRender();
+	}
+
 	public BallotPage() {
 		super();
 		
@@ -66,11 +77,13 @@ public class BallotPage extends BasePage implements AuthenticatedWebPage {
 
 			@Override
 			protected void onSubmit() {
-				setModelObject(voteService.submitBallot(getModelObject()));
-				info(getString("feedback.submitted.success"));
+				try {
+					setModelObject(voteService.submitBallot(getModelObject()));
+					info(getString("feedback.submitted.success"));
+				} catch (DeadlinePassedException e) {
+					error(getString("Exception."+e.getClass().getSimpleName()));
+				}
 			}
-
-			
 		};
 		add(ballotForm);
 		

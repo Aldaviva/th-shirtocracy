@@ -1,4 +1,4 @@
-package org.techhouse.shirts.display.web.components.converters;
+package org.techhouse.shirts.display.web.converters;
 
 import java.net.MalformedURLException;
 import java.net.URL;

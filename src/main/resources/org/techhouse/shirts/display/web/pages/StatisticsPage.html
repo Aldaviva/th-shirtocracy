@@ -6,12 +6,35 @@
 	
 	<body>
 		<wicket:extend>
-			<ul>
+			<!--<ul>
 				<li wicket:id="designList">
 					<span wicket:id="name"></span> - 
 					<span wicket:id="votes"></span>
 				</li>
-			</ul>
+			</ul>-->
+			
+			<table>
+				<thead>
+					<tr>
+						<th><wicket:message key="column.name" /></th>
+						<th><wicket:message key="column.votes" /></th>
+					</tr>
+				</thead>
+				
+				<tfoot>
+					<tr>
+						<th><wicket:message key="label.total" /></th>
+						<th><span wicket:id="total"></span></th>
+					</tr>
+				</tfoot>
+				
+				<tbody>
+					<tr wicket:id="votesTableRow">
+						<td><span wicket:id="name"></span></td>
+						<td><span wicket:id="votes"></span></td>
+					</tr>
+				</tbody>
+			</table>
 		</wicket:extend>
 	</body>
 </html>

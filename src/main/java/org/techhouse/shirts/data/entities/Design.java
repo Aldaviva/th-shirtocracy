@@ -52,12 +52,12 @@ public class Design implements Serializable {
 		return QueryExtras.list(Design.class, sortParams, entityManager());
 	}
 	
-	/*
-	public static List<Design> listByNameAsc() {
-		return entityManager().createQuery("select d from Design d order by d.name asc", Design.class).getResultList();
+	public static int countAllVotes(){
+		int total = 0;
+		final List<Design> findAllDesigns = findAllDesigns();
+		for (Design design : findAllDesigns){
+			total += design.countVotes();
+		}
+		return total;
 	}
-
-	public static List<Design> listByDateAsc() {
-		return entityManager().createQuery("select d from Design d order by d.year desc, d.name asc", Design.class).getResultList();
-	}*/
 }

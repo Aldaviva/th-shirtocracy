@@ -2,8 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:aop =			"http://www.springframework.org/schema/aop"
 	xmlns:context =		"http://www.springframework.org/schema/context"
-	xmlns:jee =			"http://www.springframework.org/schema/jee" 
-	xmlns:security =	"http://www.springframework.org/schema/security"
+	xmlns:jee =			"http://www.springframework.org/schema/jee"
 	xmlns:tx =			"http://www.springframework.org/schema/tx"
 	xmlns:xsi =			"http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation ="http://www.springframework.org/schema/aop
@@ -14,8 +13,6 @@
 						 http://www.springframework.org/schema/context/spring-context-3.0.xsd
 						 http://www.springframework.org/schema/jee
 						 http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
-						 http://www.springframework.org/schema/security 
-						 http://www.springframework.org/schema/security/spring-security-3.0.xsd
 						 http://www.springframework.org/schema/tx
 						 http://www.springframework.org/schema/tx/spring-tx-3.0.xsd"
 	default-init-method="init">
@@ -64,9 +61,5 @@
 		<property name="protocol" value="http" />
 		<property name="path" value="/useful/rest-auth/" />
 	</bean>
-	
-	<!--<security:authentication-manager alias="authenticationManager">
-		<security:authentication-provider ref="authenticationProvider" />
-	</security:authentication-manager>-->
 	
 </beans>

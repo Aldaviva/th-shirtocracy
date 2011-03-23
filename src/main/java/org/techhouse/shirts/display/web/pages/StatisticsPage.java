@@ -9,23 +9,32 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.PropertyModel;
 import org.techhouse.shirts.data.entities.Design;
+import org.techhouse.shirts.data.query.SortParam;
 
 public class StatisticsPage extends BasePage {
 
 	final IModel<List<Design>> designsModel = new LoadableDetachableModel<List<Design>>() {
-
 		private static final long serialVersionUID = 1L;
 
 		@Override
 		protected List<Design> load() {
-			return Design.findAllDesigns();
+			return Design.findAllDesigns(new SortParam("name", true));
+		}
+	};
+	
+	final IModel<Integer> totalVotesModel = new LoadableDetachableModel<Integer>() {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		protected Integer load() {
+			return Design.countAllVotes();
 		}
 	};
 
 	public StatisticsPage() {
 		super();
 
-		add(new ListView<Design>("designList", designsModel) {
+		add(new ListView<Design>("votesTableRow", designsModel) {
 
 			private static final long serialVersionUID = 1L;
 
@@ -35,6 +44,8 @@ public class StatisticsPage extends BasePage {
 				designItem.add(new Label("votes", new PropertyModel<Long>(designItem.getModelObject(), "countVotes()")));
 			}
 		});
+		
+		add(new Label("total", totalVotesModel));
 	}
 
 }

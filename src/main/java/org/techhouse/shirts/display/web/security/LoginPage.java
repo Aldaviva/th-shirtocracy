@@ -1,18 +1,22 @@
 package org.techhouse.shirts.display.web.security;
 
+import org.apache.wicket.authentication.pages.SignInPage;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.value.ValueMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.techhouse.shirts.service.DeadlineService;
 
-public class LoginPage extends WebPage {
+public class LoginPage extends SignInPage {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoginPage.class);
+	
 	
 	public LoginPage() {
 		super();
