@@ -8,8 +8,11 @@ import org.techhouse.shirts.data.entities.Configuration;
 public class DeadlineService {
 
 	public boolean hasDeadlinePassed() {
-		final DateTime deadline = getDeadline();
-		return (!isDeadlineSet()) || (deadline.isBeforeNow());
+		if(isDeadlineSet()){
+			return getDeadline().isBeforeNow();
+		} else {
+			return false;
+		}
 	}
 
 	public DateTime getDeadline() {

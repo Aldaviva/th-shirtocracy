@@ -5,3 +5,5 @@ log.roo
 *.psd
 syntax: regexp
 ^log\.roo$
+syntax: regexp
+^src/main/webapp/styles/styles\.css$
