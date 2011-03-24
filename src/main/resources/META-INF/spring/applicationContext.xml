@@ -34,16 +34,13 @@
 	</context:component-scan>
 	
 	<!-- Persistence -->
-	<bean class="org.apache.commons.dbcp.BasicDataSource"
-		destroy-method="close" id="dataSource">
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="${database.driverClassName}" />
 		<property name="url" value="${database.url}" />
 		<property name="username" value="${database.username}" />
 		<property name="password" value="${database.password}" />
 	</bean>
-	<bean
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
-		id="entityManagerFactory">
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	<bean class="org.springframework.orm.jpa.JpaTransactionManager"
@@ -56,10 +53,10 @@
 	
 	<!-- Security -->
 	<bean id="authenticationManager" class="org.techhouse.shirts.service.security.RestAuthenticator">
-		<property name="host" value="techhouse.org" />
-		<property name="port" value="80" />
-		<property name="protocol" value="http" />
-		<property name="path" value="/useful/rest-auth/" />
+		<property name="host" value="${authenticationManager.host}" />
+		<property name="port" value="${authenticationManager.port}" />
+		<property name="protocol" value="${authenticationManager.protocol}" />
+		<property name="path" value="${authenticationManager.path}" />
 	</bean>
 	
 </beans>

@@ -10,8 +10,9 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.PropertyModel;
 import org.techhouse.shirts.data.entities.Design;
 import org.techhouse.shirts.data.query.SortParam;
+import org.techhouse.shirts.display.web.security.AuthenticatedWebPage;
 
-public class StatisticsPage extends BasePage {
+public class StatisticsPage extends BasePage implements AuthenticatedWebPage {
 
 	final IModel<List<Design>> designsModel = new LoadableDetachableModel<List<Design>>() {
 		private static final long serialVersionUID = 1L;

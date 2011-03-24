@@ -11,6 +11,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,10 +26,10 @@ public class WicketSession extends AuthenticatedWebSession {
 	private AuthenticationManager authenticationManager;
 	
 	private Roles roles;
-	private Member member;
+	private String username;
 	private Authentication authentication;
 	
-	public WicketSession(Request request) {
+	public WicketSession(final Request request) {
 		super(request);
 		injectDependencies();
 		ensureDependenciesNotNull();
@@ -36,10 +37,21 @@ public class WicketSession extends AuthenticatedWebSession {
 
 	@Override
 	public boolean authenticate(final String username, final String password) {
-		authentication = new UsernamePasswordAuthenticationToken(username, password);
-		authentication = authenticationManager.authenticate(authentication);
-		setWicketRoles(authentication);
-		return authentication.isAuthenticated();
+		boolean authenticated = false;
+		try {
+			Authentication authentication = new UsernamePasswordAuthenticationToken(username, password);
+			authentication = authenticationManager.authenticate(authentication);
+			if(authentication.isAuthenticated()){
+				authenticated = true;
+				this.authentication = authentication;
+				this.username = username;
+				setWicketRoles(authentication);
+				bindAuthentication();
+			}
+		} catch (AuthenticationException e) {
+			authenticated = false;
+		}
+		return authenticated;
 	}
 	
 	public static WicketSession get(){
@@ -50,17 +62,17 @@ public class WicketSession extends AuthenticatedWebSession {
 		super.signOut();
         roles = null;
         authentication = null;
-        member = null;
+        username = null;
         invalidate();
         detach();
 	}
 
-	private void setWicketRoles(Authentication token) {
-		Collection<GrantedAuthority> authorities = token.getAuthorities();
-		String[] authorityRoles = new String[authorities.size()];
+	private void setWicketRoles(final Authentication token) {
+		final Collection<GrantedAuthority> authorities = token.getAuthorities();
+		final String[] authorityRoles = new String[authorities.size()];
 		
 		int i=0;
-		for(GrantedAuthority authority : authorities){
+		for(final GrantedAuthority authority : authorities){
 			authorityRoles[i++] = authority.getAuthority();
 		}
 		
@@ -73,10 +85,14 @@ public class WicketSession extends AuthenticatedWebSession {
 	}
 	
 	public Member getMember(){
-		return member;
+		if(username != null){
+			return Member.findMember(username);
+		} else {
+			return null;
+		}
 	}
 	
-	public boolean hasRole(Role role){
+	public boolean hasRole(final Role role){
 		return roles != null && roles.hasRole(role.name());
 	}
 	
@@ -98,8 +114,7 @@ public class WicketSession extends AuthenticatedWebSession {
     protected void attach()
     {
         super.attach();
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        securityContext.setAuthentication(authentication);
+        bindAuthentication();
     }
 
     @Override
@@ -107,6 +122,12 @@ public class WicketSession extends AuthenticatedWebSession {
     {
         SecurityContextHolder.clearContext();
         super.detach();
+    }
+    
+    private void bindAuthentication()
+    {    
+    	final SecurityContext securityContext = SecurityContextHolder.getContext();
+        securityContext.setAuthentication(authentication);
     }
 
 }

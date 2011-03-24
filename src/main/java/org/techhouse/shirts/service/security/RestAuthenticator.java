@@ -12,13 +12,14 @@ import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationServiceException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -39,87 +40,80 @@ public class RestAuthenticator implements AuthenticationManager {
 	private String path;
 	
 	@Override
-	public Authentication authenticate(Authentication token) throws AuthenticationException {
+	public Authentication authenticate(final Authentication token) throws AuthenticationException {
 		LOGGER.info("Trying to remotely authenticate user {} to {}://{}:{}{}.", new String[]{ token.getPrincipal().toString(), protocol, host, String.valueOf(port), path});
 		
-		HttpHost targetHost = new HttpHost(host, port, protocol); 
-		HttpHost proxy = new HttpHost("localhost", 9999);
+		final HttpHost targetHost = new HttpHost(host, port, protocol); 
 		
-		DefaultHttpClient httpClient = new DefaultHttpClient();
-		httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
+		final DefaultHttpClient httpClient = new DefaultHttpClient();
+		
+		/** Run authentication requests through a proxy, such as Fiddler.
+		 *  If the proxy server is not responding, all authentication requests will fail.
+		 */
+		/*/httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, new HttpHost("localhost", 9999));/**/
 
 		httpClient.getCredentialsProvider().setCredentials(
 		        new AuthScope(targetHost.getHostName(), targetHost.getPort()), 
 		        new UsernamePasswordCredentials(token.getPrincipal().toString(), (String) token.getCredentials()));
+     
 
-		// Create AuthCache instance
-		//AuthCache authCache = new BasicAuthCache();
-		// Generate BASIC scheme object and add it to the local auth cache
-		//BasicScheme basicAuth = new BasicScheme();
-		//authCache.put(targetHost, basicAuth);
-
-		// Add AuthCache to the execution context
-//		BasicHttpContext localcontext = new BasicHttpContext();
-//		localcontext.setAttribute(ClientContext.AUTH_CACHE, authCache);        
-
-		HttpGet httpGet = new HttpGet(path);
+		final HttpGet httpGet = new HttpGet(path);
 		try {
-			HttpResponse response;
-			response = httpClient.execute(targetHost, httpGet);
+			final HttpResponse response = httpClient.execute(targetHost, httpGet);
 
-		    HttpEntity entity = response.getEntity();
+		    final HttpEntity entity = response.getEntity();
 		    
-		    ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
+		    final ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
 		    entity.writeTo(resultStream);
-		    String result = resultStream.toString();
+		    final String result = resultStream.toString();
 		    
 		    EntityUtils.consume(entity);
 		    
-//		    String result = (new BufferedReader(new InputStreamReader(entity.getContent()))).readLine();
 		    LOGGER.info("Response from REST auth service: "+result);
-//		    token.setAuthenticated(token.getName().equals(result));
 		    
 		    if(token.getName().equals(result)){
 		    	return createAuthenticatedToken(token);
+		    } else {
+		    	throw new BadCredentialsException("Incorrect username or password.");
 		    }
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (final ClientProtocolException e) {
+			throw new AuthenticationServiceException("Transport protocol error while authenticating", e);
+		} catch (final IOException e) {
 			e.printStackTrace();
 		}
 		
 		return token;
 	}
 
-	private Authentication createAuthenticatedToken(Authentication token) {
+	private Authentication createAuthenticatedToken(final Authentication token) {
 		Member member = Member.findMember(token.getName());
 		if(member == null){
 			member = memberService.createMember(token.getName());
 		}
-		Collection<RoleGrantedAuthority> authorities = new ArrayList<RoleGrantedAuthority>();
-		Role nominalRole = member.getRole();
-		for(Role possibleRole : Role.values()){
+		final Collection<RoleGrantedAuthority> authorities = new ArrayList<RoleGrantedAuthority>();
+		final Role nominalRole = member.getRole();
+		for(final Role possibleRole : Role.values()){
 			if(possibleRole.compareTo(nominalRole) <= 0){
 				authorities.add(new RoleGrantedAuthority(possibleRole));
 			}
 		}
-		Authentication newToken = new UsernamePasswordAuthenticationToken(token.getPrincipal(), token.getCredentials(), authorities);
+		final Authentication newToken = new UsernamePasswordAuthenticationToken(token.getPrincipal(), token.getCredentials(), authorities);
 		return newToken;
 	}
 
-	public void setHost(String host) {
+	public void setHost(final String host) {
 		this.host = host;
 	}
 
-	public void setPort(int port) {
+	public void setPort(final int port) {
 		this.port = port;
 	}
 
-	public void setProtocol(String protocol) {
+	public void setProtocol(final String protocol) {
 		this.protocol = protocol;
 	}
 
-	public void setPath(String path) {
+	public void setPath(final String path) {
 		this.path = path;
 	}
 

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 import javax.validation.constraints.Max;
@@ -26,6 +27,8 @@ public class Design implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@NotNull
+	@Column(unique = true)
 	private String name;
 
 	@NotNull

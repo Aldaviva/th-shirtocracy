@@ -35,7 +35,7 @@ public class WicketApplication extends AuthenticatedWebApplication {
 
 	@Override
 	protected IConverterLocator newConverterLocator() {
-		ConverterLocator converterLocator = new ConverterLocator();
+		final ConverterLocator converterLocator = new ConverterLocator();
 		
 		converterLocator.set(URL.class, new URLConverter());
 		

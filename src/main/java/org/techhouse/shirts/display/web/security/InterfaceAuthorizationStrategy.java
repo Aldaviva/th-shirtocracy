@@ -10,7 +10,7 @@ import org.techhouse.shirts.display.web.WicketApplication;
 public class InterfaceAuthorizationStrategy implements IAuthorizationStrategy {
 	
 	@Override
-	public <T extends Component> boolean isInstantiationAuthorized(Class<T> componentClass) {
+	public <T extends Component> boolean isInstantiationAuthorized(final Class<T> componentClass) {
 		if (AuthenticatedWebPage.class.isAssignableFrom(componentClass)) {
 			if ((WicketSession.get()).isSignedIn()) {
 				if (AdminPage.class.isAssignableFrom(componentClass)) {
@@ -36,7 +36,7 @@ public class InterfaceAuthorizationStrategy implements IAuthorizationStrategy {
 	}
 
 	@Override
-	public boolean isActionAuthorized(Component arg0, Action arg1) {
+	public boolean isActionAuthorized(final Component arg0, final Action arg1) {
 		return true;
 	}
 	
@@ -53,7 +53,7 @@ public class InterfaceAuthorizationStrategy implements IAuthorizationStrategy {
 			pageMap = PageMap.forName(parameters.getPageMapName());
 		}
 
-		pageMap.redirectToInterceptPage(getSignInPageClass());*/
+		pageMap.redirectToInterceptPage(WicketApplication.get().getSignInPageClass());*/
 		
 		throw new RestartResponseAtInterceptPageException(WicketApplication.get().getSignInPageClass());
 	}
