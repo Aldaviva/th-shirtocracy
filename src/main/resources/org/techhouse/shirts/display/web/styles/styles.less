@@ -221,12 +221,14 @@
 			border-style: solid;
 			border-color: #aeaeae #c8c8c8 #e3e3e3;
 			margin-top: -1 * @size_designform_textfieldBorderWidth;
+			float: right;
+			box-sizing: content-box;
+			padding: 0;
 		}
 		
 		input[type=text] {
 			float: right;
 			width: 66.6667%;
-			
 		}
 		
 		.name[type=text] {
@@ -263,7 +265,7 @@
 			.deadline {
 				float: right;
 				input[name='deadline:date'] {
-					width: 58px;
+					width: 63px;
 				}
 				input[name='deadline:hours'], input[name='deadline:minutes'] {
 					width: 27px;

@@ -49,7 +49,7 @@
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1301041133947</id>
+			<id>1301042092383</id>
 			<name></name>
 			<type>10</type>
 			<matcher>
@@ -58,12 +58,21 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1301041133952</id>
+			<id>1301042092388</id>
 			<name></name>
-			<type>10</type>
+			<type>22</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-false-target</arguments>
+				<arguments>1.0-name-matches-false-false-webapp-cache.xml</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1301042092391</id>
+			<name></name>
+			<type>22</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-aop-ajc.xml</arguments>
 			</matcher>
 		</filter>
 	</filteredResources>
