@@ -96,8 +96,9 @@
 					background-position: 50% 50%;
 					.background-image("voteButton_check.png");
 					.button.mouseStateColors(@colors_votebutton_background);
+					color: rgba(0, 0, 0, 0.0);
 					
-					&.selected {
+					&:checked {
 						.background-image("voteButton_check_enabled.png");
 						.button.mouseStateColors(@colors_votebutton_background_enabled);
 					}

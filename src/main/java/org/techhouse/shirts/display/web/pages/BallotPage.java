@@ -8,7 +8,10 @@ import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Check;
+import org.apache.wicket.markup.html.form.CheckGroup;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -25,7 +28,6 @@ import org.techhouse.shirts.data.entities.Member;
 import org.techhouse.shirts.data.query.SortParam;
 import org.techhouse.shirts.display.web.WicketApplication;
 import org.techhouse.shirts.display.web.behaviors.SetCssClassToWicketIdBehavior;
-import org.techhouse.shirts.display.web.components.VoteButton;
 import org.techhouse.shirts.display.web.security.DeadlinePage;
 import org.techhouse.shirts.display.web.security.WicketSession;
 import org.techhouse.shirts.service.ServiceException.DeadlinePassedException;
@@ -41,16 +43,6 @@ public class BallotPage extends BasePage implements DeadlinePage {
 	private final IModel<List<Design>> designsModel;
 
 	private final Form<Member> ballotForm;
-	
-	@Override
-	public void prepareForRender(boolean setRenderingFlag) {
-		super.prepareForRender(setRenderingFlag);
-	}
-
-	@Override
-	protected void onBeforeRender() {
-		super.onBeforeRender();
-	}
 
 	public BallotPage() {
 		super();
@@ -61,7 +53,6 @@ public class BallotPage extends BasePage implements DeadlinePage {
 			memberModel = Model.of(WicketSession.get().getMember()); 
 		}
 			
-		
 		designsModel = new LoadableDetachableModel<List<Design>>() {
 			private static final long serialVersionUID = 1L;
 
@@ -72,7 +63,6 @@ public class BallotPage extends BasePage implements DeadlinePage {
 		};
 		
 		ballotForm = new Form<Member>("ballotForm", memberModel) {
-
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -87,13 +77,19 @@ public class BallotPage extends BasePage implements DeadlinePage {
 		};
 		add(ballotForm);
 		
-		ballotForm.add(new ListView<Design>("designListView", designsModel) {
-
+		final CheckGroup<Design> checkGroup = new CheckGroup<Design>("checkGroup", new PropertyModel<List<Design>>(ballotForm.getModel(), "designs"));
+		checkGroup.setRenderBodyOnly(false);
+		ballotForm.add(checkGroup);
+		
+		checkGroup.add(new ListView<Design>("designListView", designsModel) {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			protected void populateItem(final ListItem<Design> item) {
 				item.setModel(new CompoundPropertyModel<Design>(item.getModelObject()));
+				
+				item.add(new Check<Design>("voteCheck", new PropertyModel<Design>(item, "modelObject"), checkGroup)
+						.add(new AttributeAppender("class", true, Model.of("voteButton"), " ")));
 				
 				item.add(new Image("thumbnail").add(new AttributeModifier("src", new PropertyModel<URL>(item.getModel(), "thumbnail"))));
 				item.add(new Label("name").add(new SetCssClassToWicketIdBehavior()));
@@ -111,37 +107,7 @@ public class BallotPage extends BasePage implements DeadlinePage {
 						return StringUtils.join(split, ", ");
 					}
 				}).add(new SetCssClassToWicketIdBehavior()));
-				
-				item.add(new VoteButton("voteButton", new SelectedDesignModel(item.getModel())).add(new SetCssClassToWicketIdBehavior()));
 			}
 		});
-	}
-	
-	private final class SelectedDesignModel extends Model<Boolean> {
-
-		private static final long serialVersionUID = 1L;
-		private final IModel<Design> designModel;
-
-		public SelectedDesignModel(IModel<Design> designModel) {
-			this.designModel = designModel;
-		}
-
-		@Override
-		public Boolean getObject() {
-			Design object = designModel.getObject();
-			return memberModel.getObject().getDesigns().contains(object);
-		}
-
-		@Override
-		public void setObject(Boolean value) {
-			Design object = designModel.getObject();
-			Member member = ballotForm.getModelObject();
-			if(value){
-				member.getDesigns().add(object);
-			} else {
-				member.getDesigns().remove(object);
-			}
-		}
-		
 	}
 }
