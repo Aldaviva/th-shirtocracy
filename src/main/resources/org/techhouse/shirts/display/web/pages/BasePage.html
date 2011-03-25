@@ -6,7 +6,7 @@
 			<title>Technology House Apparel</title>
 			<link href="styles/reset.css" rel="stylesheet" type="text/css" />
 			<link href="styles/styles.css" rel="stylesheet" type="text/css" />
-			<link rel="shortcut icon" href="http://techhouse.org/favicon.ico" type="image/x-icon" />
+			<link href="http://techhouse.org/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 		</wicket:head>
 	</head>
 	
@@ -27,6 +27,10 @@
 								
 								<p>
 									<wicket:message key="text.intro" />
+								</p>
+								
+								<p>
+									<wicket:message key="text.advice" />
 								</p>
 								
 								<p wicket:id="deadlineNotice">
@@ -67,7 +71,7 @@
 									<div>
 										<h3><wicket:message key="nav.help.title" /></h3>
 										<a><wicket:message key="nav.help.tutorial" /></a>
-										<a><wicket:message key="nav.help.support" /></a>
+										<a wicket:message="href:link.support"><wicket:message key="nav.help.support" /></a>
 									</div>
 								</div>
 						</div>
