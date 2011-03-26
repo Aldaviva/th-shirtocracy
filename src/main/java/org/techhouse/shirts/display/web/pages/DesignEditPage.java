@@ -17,7 +17,7 @@ import org.techhouse.shirts.display.web.security.AdminPage;
 import org.techhouse.shirts.service.DesignService;
 
 
-public class DesignEditPage extends BasePage implements AdminPage {
+public class DesignEditPage extends TemplatePage implements AdminPage {
 
 	private Form<Design> form;
 	private final boolean isNewDesign;
@@ -55,33 +55,33 @@ public class DesignEditPage extends BasePage implements AdminPage {
 		form.add(
 				new TextField<String>("name")
 				.setRequired(true)
-				.add(new PlaceholderBehavior("Design Name"))
+				.add(new PlaceholderBehavior())
 				.add(new SetCssClassToWicketIdBehavior())
 		);
 		
 		form.add(
 				new TextField<URL>("thumbnail")
 				.setRequired(true)
-				.add(new PlaceholderBehavior("http://"))
+				.add(new PlaceholderBehavior())
 				.add(new SetCssClassToWicketIdBehavior())
 		);
 		
 		form.add(
 				new TextField<String>("artist")
-				.add(new PlaceholderBehavior("Josiah Carberry"))
+				.add(new PlaceholderBehavior())
 				.add(new SetCssClassToWicketIdBehavior())
 		);
 		
 		form.add(
 				new TextField<Integer>("year")
 				.add(new RangeValidator<Integer>(1985, 2021))
-				.add(new PlaceholderBehavior("YYYY"))
+				.add(new PlaceholderBehavior())
 				.add(new SetCssClassToWicketIdBehavior())
 		);
 		
 		form.add(
 				new TextField<URL>("photograph")
-				.add(new PlaceholderBehavior("http://"))
+				.add(new PlaceholderBehavior())
 				.add(new SetCssClassToWicketIdBehavior())
 		);
 		

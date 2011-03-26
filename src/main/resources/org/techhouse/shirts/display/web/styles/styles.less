@@ -293,3 +293,70 @@
 		}
 	}
 }
+
+#StatisticsPage {
+	table {
+		.votesBar {
+			width: 150px;
+			> div {
+				background: red;
+			}
+		}
+	}
+}
+
+#SignInPage {
+	form {
+		width: @size_signinform_width;
+		margin: 0 auto 0;
+		padding-top: 24px;
+	
+		h1 {
+			text-indent: -9999px;
+			width: 238px;
+			height: 238px;
+			background-repeat: no-repeat;
+			.background-image("login_logo.png");
+			margin: 17px auto @size_signinform_aroundInputGap;
+		}
+		
+		input[type=text], input[type=password] {
+			border-radius: 3px;
+			border: 1px solid @colors_bluegray;
+			background-color: white;
+			width: @size_signinform_width;
+			box-sizing: border-box;
+			padding: 0.4444em;
+			
+			#font>.size(18px);
+			color: @colors_text_dark;
+			//height: 40px;
+			
+			&:focus {
+				border-color: @colors_green;
+			}
+		}
+		
+		input[type=password] {
+			margin-top: @size_signinform_betweenInputGap;
+		}
+		
+		.hint {
+			#font>.size(13px);
+			line-height: 18px;
+			color: @colors_red;
+			text-align: center;
+			white-space: pre;
+			font-weight: lighter;
+			font-style: italic;
+			margin-top: @size_signinform_aroundInputGap;
+		}
+		
+		&.failed {
+			input[type=text], input[type=password] {
+				border-color: @colors_red !important;
+				
+			}	
+		}
+	}
+}

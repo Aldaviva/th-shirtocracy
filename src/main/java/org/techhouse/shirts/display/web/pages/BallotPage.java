@@ -2,6 +2,7 @@ package org.techhouse.shirts.display.web.pages;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -25,6 +26,7 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.techhouse.shirts.data.entities.Design;
 import org.techhouse.shirts.data.entities.Member;
+import org.techhouse.shirts.data.query.QueryParam;
 import org.techhouse.shirts.data.query.SortParam;
 import org.techhouse.shirts.display.web.WicketApplication;
 import org.techhouse.shirts.display.web.behaviors.SetCssClassToWicketIdBehavior;
@@ -33,7 +35,7 @@ import org.techhouse.shirts.display.web.security.WicketSession;
 import org.techhouse.shirts.service.ServiceException.DeadlinePassedException;
 import org.techhouse.shirts.service.VoteService;
 
-public class BallotPage extends BasePage implements DeadlinePage {
+public class BallotPage extends TemplatePage implements DeadlinePage {
 
 	@SpringBean
 	private VoteService voteService;
@@ -58,7 +60,7 @@ public class BallotPage extends BasePage implements DeadlinePage {
 
 			@Override
 			protected List<Design> load() {
-				return Design.findAllDesigns(new SortParam("year", false), new SortParam("name", true));
+				return Design.findAllDesigns(new QueryParam().setSort(Arrays.asList(new SortParam("year", false), new SortParam("name", true))));
 			}
 		};
 		

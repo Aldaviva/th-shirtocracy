@@ -10,10 +10,11 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.PropertyModel;
 import org.techhouse.shirts.data.entities.Design;
+import org.techhouse.shirts.data.query.QueryParam;
 import org.techhouse.shirts.data.query.SortParam;
 import org.techhouse.shirts.display.web.security.AdminPage;
 
-public class DesignListPage extends BasePage implements AdminPage {
+public class DesignListPage extends TemplatePage implements AdminPage {
 
 	private final IModel<List<Design>> designsModel;
 
@@ -26,7 +27,7 @@ public class DesignListPage extends BasePage implements AdminPage {
 
 			@Override
 			protected List<Design> load() {
-				return Design.findAllDesigns(new SortParam("name", true));
+				return Design.findAllDesigns(new QueryParam().addSort(new SortParam("name", true)));
 			}
 		};
 

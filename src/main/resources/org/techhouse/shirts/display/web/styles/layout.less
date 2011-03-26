@@ -47,6 +47,19 @@ a, a:visited {
 	color: @colors_blue;
 }
 
+.placeholder(){
+	color: @colors_bluegray !important;
+	font-style: italic;
+	font-weight: lighter;
+}
+::-webkit-input-placeholder {
+	.placeholder();
+}
+:-moz-placeholder {
+	.placeholder();
+}
+
+
 .clear {
 	clear: both;
 	float: none;
@@ -137,10 +150,10 @@ header{
 		#font>.size(@font_size_navigation_heading, @font_size_navigation_text);
 		margin-bottom: 1px;
 		.ellipses();
+		background: none no-repeat 0px 0px;
+		padding-left: @size_nav_leftGap;
 		
 		.navIcon(@section) {
-			background: none no-repeat 0px 1px;
-			padding-left: 21px;
 			.background-image(%("layout/nav_%s.png", @section));
 		}
 		
@@ -154,7 +167,7 @@ header{
 	a, a:visited {
 		display: block;
 		color: @colors_text_light;
-		padding-left: @size_nav_linkLeftGap;
+		padding-left: @size_nav_leftGap;
 		.pillarTextShadow();
 		
 		&:hover {

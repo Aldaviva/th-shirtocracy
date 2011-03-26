@@ -6,24 +6,19 @@
 	
 	<body>
 		<wicket:extend>
-			<!--<ul>
-				<li wicket:id="designList">
-					<span wicket:id="name"></span> - 
-					<span wicket:id="votes"></span>
-				</li>
-			</ul>-->
-			
 			<table>
 				<thead>
 					<tr>
 						<th><wicket:message key="column.name" /></th>
-						<th><wicket:message key="column.votes" /></th>
+						<th><wicket:message key="column.votes.bar" /></th>
+						<th><wicket:message key="column.votes.number" /></th>
 					</tr>
 				</thead>
 				
 				<tfoot>
 					<tr>
 						<th><wicket:message key="label.total" /></th>
+						<th></th>
 						<th><span wicket:id="total"></span></th>
 					</tr>
 				</tfoot>
@@ -31,7 +26,8 @@
 				<tbody>
 					<tr wicket:id="votesTableRow">
 						<td><span wicket:id="name"></span></td>
-						<td><span wicket:id="votes"></span></td>
+						<td class="votesBar"><div wicket:id="votes.bar"></div></td>
+						<td><span wicket:id="votes.number"></span></td>
 					</tr>
 				</tbody>
 			</table>

@@ -69,7 +69,7 @@ public class RestAuthenticator implements AuthenticationManager {
 		    
 		    EntityUtils.consume(entity);
 		    
-		    LOGGER.info("Response from REST auth service: "+result);
+		    LOGGER.debug("Response from REST auth service: "+result);
 		    
 		    if(token.getName().equals(result)){
 		    	return createAuthenticatedToken(token);

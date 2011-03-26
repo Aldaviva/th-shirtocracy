@@ -12,7 +12,7 @@ import org.techhouse.shirts.display.web.behaviors.SetCssClassToWicketIdBehavior;
 import org.techhouse.shirts.display.web.converters.DateToDateTimeModel;
 import org.techhouse.shirts.display.web.security.AdminPage;
 
-public class ConfigurationPage extends BasePage implements AdminPage {
+public class ConfigurationPage extends TemplatePage implements AdminPage {
 
 	private final IModel<Configuration> configurationModel;
 
