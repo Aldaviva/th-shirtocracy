@@ -67,3 +67,9 @@
 .background-image (@filename) {
 	background-image: e(%('url(%s%s)', @resource_imgDir, @filename));
 }
+
+.ellipses(){
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;	
+}

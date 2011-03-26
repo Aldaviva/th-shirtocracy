@@ -136,6 +136,19 @@ header{
 		font-weight: bold;
 		#font>.size(@font_size_navigation_heading, @font_size_navigation_text);
 		margin-bottom: 1px;
+		.ellipses();
+		
+		.navIcon(@section) {
+			background: none no-repeat 0px 1px;
+			padding-left: 21px;
+			.background-image(%("layout/nav_%s.png", @section));
+		}
+		
+		&.user { .navIcon("user"); }
+		&.admin { .navIcon("admin"); }
+		&.results { .navIcon("results"); }
+		&.help { .navIcon("help"); }
+		
 	}
 	
 	a, a:visited {
