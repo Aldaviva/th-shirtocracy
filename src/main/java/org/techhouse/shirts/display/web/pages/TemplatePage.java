@@ -1,7 +1,5 @@
 package org.techhouse.shirts.display.web.pages;
 
-import java.text.SimpleDateFormat;
-
 import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
@@ -69,13 +67,17 @@ public abstract class TemplatePage extends BasePage {
 		final WebMarkupContainer deadlineNotice = new WebMarkupContainer("deadlineNotice");
 		add(deadlineNotice);
 		deadlineNotice.setVisible(deadlineService.isDeadlineSet());
-		if (deadlineService.isDeadlineSet()) {
-			deadlineNotice.add(new Label("date", new SimpleDateFormat(getString("text.deadline.format.date")).format(deadlineService.getDeadline().toDate())));
-			deadlineNotice.add(new Label("time", new SimpleDateFormat(getString("text.deadline.format.time")).format(deadlineService.getDeadline().toDate())));
-		} else {
-			deadlineNotice.add(new Label("date", ""));
-			deadlineNotice.add(new Label("time", ""));
-		}
+		deadlineNotice.add(new Label("dateTime", new AbstractReadOnlyModel<String>() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public String getObject() {
+				if (deadlineService.isDeadlineSet()) {
+					return deadlineService.getDeadline().withZone(WicketApplication.get().getDefaultDateTimeZone()).toString("EEEE, MMMM d, YYYY, 'at' h:mm a z");
+				} else {
+					return "none";
+			}
+		}}));
 
 		final WebMarkupContainer adminNavContainer = new WebMarkupContainer("admin");
 		adminNavContainer.setVisible(WicketSession.get().hasRole(Role.ADMIN) || WicketApplication.get().isDevelopment());

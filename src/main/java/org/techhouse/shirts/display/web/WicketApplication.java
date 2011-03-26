@@ -16,6 +16,7 @@ import org.apache.wicket.request.IRequestCycleProcessor;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.apache.wicket.util.convert.ConverterLocator;
 import org.apache.wicket.util.crypt.CachingSunJceCryptFactory;
+import org.joda.time.DateTimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.token.Sha512DigestUtils;
 import org.techhouse.shirts.display.web.converters.URLConverter;
@@ -91,5 +92,9 @@ public class WicketApplication extends AuthenticatedWebApplication {
 	@Override
 	public Class<? extends WebPage> getSignInPageClass() {
 		return SignInPage.class;
+	}
+	
+	public DateTimeZone getDefaultDateTimeZone(){
+		return DateTimeZone.forID("America/New_York");
 	}
 }
