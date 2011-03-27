@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+	<head>
+		<meta charset="UTF-8">
+	</head>
+	
+	<body>
+		<wicket:panel>
+			<div class="DetailsOverlay" wicket:id="mask">
+				<div>
+					<div>
+						<div class="content">
+							<button wicket:id="close">close</button>
+							<img wicket:id="photograph" />
+						
+							<div class="info">
+								<h2 wicket:id="name"></h2>
+								<div wicket:id="artist"></div>
+								<div wicket:id="year"></div>
+								
+								<p wicket:id="notes"></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</wicket:panel>
+	</body>
+</html>

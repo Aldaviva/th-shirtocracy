@@ -9,9 +9,9 @@ import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.wicket.AttributeModifier;
-import org.apache.wicket.behavior.AttributeAppender;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.Check;
 import org.apache.wicket.markup.html.form.CheckGroup;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.image.Image;
@@ -30,6 +30,8 @@ import org.techhouse.shirts.data.query.QueryParam;
 import org.techhouse.shirts.data.query.SortParam;
 import org.techhouse.shirts.display.web.WicketApplication;
 import org.techhouse.shirts.display.web.behaviors.SetCssClassToWicketIdBehavior;
+import org.techhouse.shirts.display.web.components.DetailsOverlay;
+import org.techhouse.shirts.display.web.components.VoteButton;
 import org.techhouse.shirts.display.web.security.DeadlinePage;
 import org.techhouse.shirts.display.web.security.WicketSession;
 import org.techhouse.shirts.service.ServiceException.DeadlinePassedException;
@@ -45,6 +47,8 @@ public class BallotPage extends TemplatePage implements DeadlinePage {
 	private final IModel<List<Design>> designsModel;
 
 	private final Form<Member> ballotForm;
+
+	private DetailsOverlay detailsOverlay;
 
 	public BallotPage() {
 		super();
@@ -64,6 +68,9 @@ public class BallotPage extends TemplatePage implements DeadlinePage {
 			}
 		};
 		
+		detailsOverlay = new DetailsOverlay("detailsOverlay", Model.of(new Design()));
+		add(detailsOverlay);
+		
 		ballotForm = new Form<Member>("ballotForm", memberModel) {
 			private static final long serialVersionUID = 1L;
 
@@ -79,6 +86,7 @@ public class BallotPage extends TemplatePage implements DeadlinePage {
 		};
 		add(ballotForm);
 		
+		
 		final CheckGroup<Design> checkGroup = new CheckGroup<Design>("checkGroup", new PropertyModel<List<Design>>(ballotForm.getModel(), "designs"));
 		checkGroup.setRenderBodyOnly(false);
 		ballotForm.add(checkGroup);
@@ -90,8 +98,8 @@ public class BallotPage extends TemplatePage implements DeadlinePage {
 			protected void populateItem(final ListItem<Design> item) {
 				item.setModel(new CompoundPropertyModel<Design>(item.getModelObject()));
 				
-				item.add(new Check<Design>("voteCheck", new PropertyModel<Design>(item, "modelObject"), checkGroup)
-						.add(new AttributeAppender("class", true, Model.of("voteButton"), " ")));
+//				item.add(new Check<Design>("voteButton", new PropertyModel<Design>(item, "modelObject"), checkGroup).add(new SetCssClassToWicketIdBehavior()));
+				item.add(new VoteButton("voteButton", new PropertyModel<Design>(item, "modelObject"), checkGroup));
 				
 				item.add(new Image("thumbnail").add(new AttributeModifier("src", new PropertyModel<URL>(item.getModel(), "thumbnail"))));
 				item.add(new Label("name").add(new SetCssClassToWicketIdBehavior()));
@@ -109,6 +117,17 @@ public class BallotPage extends TemplatePage implements DeadlinePage {
 						return StringUtils.join(split, ", ");
 					}
 				}).add(new SetCssClassToWicketIdBehavior()));
+				
+				item.add(new AjaxLink<Void>("detailsButton") {
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void onClick(AjaxRequestTarget target) {
+						detailsOverlay.setDefaultModelObject(item.getModelObject());
+						detailsOverlay.setVisible(true);
+						target.addComponent(detailsOverlay);
+					}
+				}.add(new SetCssClassToWicketIdBehavior()));
 			}
 		});
 	}

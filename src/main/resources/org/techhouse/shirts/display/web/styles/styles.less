@@ -44,6 +44,22 @@
 		}
 	}
 	
+	.cellButton (@backgroundImageUrl, @backgroundColor) {
+		position: absolute;
+		bottom: @size_votebutton_gap;
+		width: @size_votebutton;
+		height: @size_votebutton;
+		.box-sizing(content-box);
+		padding: 0;
+		border: 2px solid white;
+		cursor: pointer;
+		background-repeat: no-repeat;
+		background-position: 50% 50%;
+		.background-image(@backgroundImageUrl);
+		.button.mouseStateColors(@backgroundColor);
+		color: rgba(0, 0, 0, 0.0);
+	}
+	
 	.cells {
 		.cell {
 			float: left;
@@ -85,25 +101,19 @@
 				}
 				
 				.voteButton {
-					position: absolute;
-					bottom: @size_votebutton_gap;
+					.cellButton("voteButton_check.png", @colors_votebutton_background);
 					left: @size_votebutton_gap;
-					width: @size_votebutton;
-					height: @size_votebutton;
-					box-sizing: content-box;
-					padding: 0;
-					border: 2px solid white;
-					cursor: pointer;
-					background-repeat: no-repeat;
-					background-position: 50% 50%;
-					.background-image("voteButton_check.png");
-					.button.mouseStateColors(@colors_votebutton_background);
-					color: rgba(0, 0, 0, 0.0);
 					
-					&:checked {
+					&.checked {
 						.background-image("voteButton_check_enabled.png");
 						.button.mouseStateColors(@colors_votebutton_background_enabled);
 					}
+				}
+				
+				.detailsButton {
+					.cellButton("detailsButton.png", @colors_blue);
+					right: @size_votebutton_gap;
+					
 				}
 			}
 		}
@@ -223,7 +233,7 @@
 			border-color: #aeaeae #c8c8c8 #e3e3e3;
 			margin-top: -1 * @size_designform_textfieldBorderWidth;
 			float: right;
-			box-sizing: content-box;
+			.box-sizing(content-box);
 			padding: 0;
 		}
 		
@@ -301,16 +311,20 @@
 			width: 100%;
 		
 			td, th {
-				padding: 0 2px;
+				padding: 0px 2px 8px;
+			}
+			
+			tbody tr:first-child td, tfoot th {
+				padding-top: 8px;
 			}
 		
 			td {
-				line-height: 1.6em;
+				//line-height: 1.6em;
 			}
 			
 			th {
-				line-height: 2.3em;
-				#font>.size(10px);
+				//line-height: 2.3em;
+				#font>.size(12px);
 				text-transform: uppercase;
 				font-weight: bold;
 			}
@@ -332,24 +346,26 @@
 			}
 			
 			td.votesBar {
-				width: 150px;
+				//width: 150px;
 				> div { 
-					#border>.radius(2px);
-					border: 1px solid @colors_bluegray;
+					@borderWidth: 1px;
+					#border>.radius(3px);
+					border: @borderWidth solid @colors_bluegray;
 					width: 100%;
+					height: @size_statistics_votesBarHeight;
 					
 					> div {
-						height: 1em;
+						height: @size_statistics_votesBarHeight;
 						background: @colors_blue;
-						#border>.radius(2px);
-						border: 1px solid @colors_blue;
-						margin: -1px;
+						#border>.radius(3px);
+						border: @borderWidth solid @colors_blue;
+						margin: -1 * @borderWidth;
 					}
 				}
 			}
 			
 			.votesNumber {
-				text-align: center;
+				text-align: right;
 			}
 		}
 	}
@@ -375,7 +391,7 @@
 			border: 1px solid @colors_bluegray;
 			background-color: white;
 			width: @size_signinform_width;
-			box-sizing: border-box;
+			.box-sizing(border-box);
 			padding: 0.4444em;
 			
 			#font>.size(18px);
@@ -409,4 +425,62 @@
 			}	
 		}
 	}
+}
+
+.DetailsOverlay {
+	display: table;
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	width: 100%;
+	background: rgba(0, 0, 0, 0.17);
+	z-index: 100;
+	height: 100%;
+	
+	> div {
+		display: table-cell;	
+		vertical-align: middle;
+		
+		> div {
+			float: right;
+			left: -50%;
+			position: relative;
+			text-align: left;
+			
+			> div { //.content
+				left: 50%;
+				position: relative;
+			}
+		}
+	}
+	
+	.content {
+		.form;
+		max-width: none;
+		margin: 0 auto;
+		
+		float: left;
+		
+		img {
+			max-height: @size_detailsoverlay_imgHeight;
+			float: left;
+		}
+		
+		button {
+			position: absolute;
+			top: 0;
+			right: 0;
+		}
+		
+		.info {
+			margin-left: @size_form_padding;
+			float: left;
+			
+			p {
+				margin-top: @size_designform_fieldGap;
+			}
+		}
+	}	
 }

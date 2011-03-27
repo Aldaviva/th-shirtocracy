@@ -6,6 +6,7 @@
 	
 	<body>
 		<wicket:extend>
+			<div wicket:id="detailsOverlay"></div>
 			<form wicket:id="ballotForm">
 				<div class="cells" wicket:id="checkGroup">
 					<div wicket:id="designListView" class="cell">
@@ -15,8 +16,8 @@
 							</div>
 							<span wicket:id="name"></span>
 							<span wicket:id="artistAndYear"></span>
-							<input type="checkbox" wicket:id="voteCheck" />
-							<!--<button wicket:id="zoom"></button>-->
+							<div wicket:id="voteButton"></div>
+							<button wicket:id="detailsButton"></button>
 						</div>
 					</div>
 				</div>

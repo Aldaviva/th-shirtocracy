@@ -9,7 +9,6 @@
 			<div class="table">
 				<div class="tableRow">
 					<div class="tableCell pillar left">
-							
 							<div class="pillarContent">
 								<header>
 									<h1>
@@ -32,6 +31,15 @@
 										<span wicket:id="dateTime"></span>
 									</wicket:message>
 								</p>
+						</div>
+					</div>
+					
+					<div class="tableCell center">
+						<div class="main" wicket:id="main">
+							<wicket:container wicket:id="feedback"></wicket:container>
+							<div class="mainPadding">
+								<wicket:child />
+							</div>
 						</div>
 					</div>
 					
@@ -59,16 +67,6 @@
 								</div>
 						</div>
 					</div>
-					
-					<div class="tableCell center">
-						<div class="main" wicket:id="main">
-							<wicket:container wicket:id="feedback"></wicket:container>
-							<div class="mainPadding">
-								<wicket:child />
-							</div>
-						</div>
-					</div>
-					
 				</div>
 			</div>
 		</wicket:extend>
