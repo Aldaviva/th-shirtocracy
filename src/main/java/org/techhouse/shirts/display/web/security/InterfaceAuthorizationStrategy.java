@@ -6,9 +6,16 @@ import org.apache.wicket.authorization.Action;
 import org.apache.wicket.authorization.IAuthorizationStrategy;
 import org.techhouse.shirts.data.enums.Role;
 import org.techhouse.shirts.display.web.WicketApplication;
+import org.techhouse.shirts.service.DeadlineService;
 
 public class InterfaceAuthorizationStrategy implements IAuthorizationStrategy {
 	
+	private final DeadlineService deadlineService;
+
+	public InterfaceAuthorizationStrategy(DeadlineService deadlineService) {
+		this.deadlineService = deadlineService;
+	}
+
 	@Override
 	public <T extends Component> boolean isInstantiationAuthorized(final Class<T> componentClass) {
 		if (AuthenticatedWebPage.class.isAssignableFrom(componentClass)) {
@@ -19,7 +26,7 @@ public class InterfaceAuthorizationStrategy implements IAuthorizationStrategy {
 						return false;
 					}
 				} else if (DeadlinePage.class.isAssignableFrom(componentClass)){
-					if (!WicketSession.get().hasRole(Role.ADMIN)) {
+					if (!WicketSession.get().hasRole(Role.ADMIN) && deadlineService.hasDeadlinePassed()) {
 						// needed admin role to see this deadlinepage, but didn't have it
 						return false;
 					}

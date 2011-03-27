@@ -198,7 +198,6 @@
 
 #DesignEditPage, #ConfigurationPage {
 	form {
-		.form;
 		
 		.fields {
 			margin: @size_designform_fieldGap 0;
@@ -295,11 +294,62 @@
 }
 
 #StatisticsPage {
-	table {
-		.votesBar {
-			width: 150px;
-			> div {
-				background: red;
+	.form {
+		max-width: 600px;
+	
+		table {
+			width: 100%;
+		
+			td, th {
+				padding: 0 2px;
+			}
+		
+			td {
+				line-height: 1.6em;
+			}
+			
+			th {
+				line-height: 2.3em;
+				#font>.size(10px);
+				text-transform: uppercase;
+				font-weight: bold;
+			}
+			
+			thead {
+				tr {
+					border-bottom: 1px solid @colors_bluegray;
+				}
+			} 
+			
+			tfoot {
+				tr {
+					border-top: 1px solid @colors_bluegray;
+				}
+			} 
+			
+			.votesBar {
+				text-align: center;
+			}
+			
+			td.votesBar {
+				width: 150px;
+				> div { 
+					#border>.radius(2px);
+					border: 1px solid @colors_bluegray;
+					width: 100%;
+					
+					> div {
+						height: 1em;
+						background: @colors_blue;
+						#border>.radius(2px);
+						border: 1px solid @colors_blue;
+						margin: -1px;
+					}
+				}
+			}
+			
+			.votesNumber {
+				text-align: center;
 			}
 		}
 	}

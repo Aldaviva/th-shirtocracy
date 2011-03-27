@@ -57,7 +57,7 @@ public class WicketApplication extends AuthenticatedWebApplication {
 		getApplicationSettings().setPageExpiredErrorPage(getHomePage());
 
 		if (!isDevelopment()) {
-			getSecuritySettings().setAuthorizationStrategy(new InterfaceAuthorizationStrategy());
+			getSecuritySettings().setAuthorizationStrategy(new InterfaceAuthorizationStrategy(deadlineService));
 		}
 
 		if (/* /!isDevelopment()/ */true/**/) {

@@ -57,7 +57,7 @@ public class StatisticsPage extends TemplatePage implements AuthenticatedWebPage
 			protected void populateItem(final ListItem<Design> designItem) {
 				designItem.add(new Label("name", new PropertyModel<String>(designItem.getModelObject(), "name")));
 				final IModel<Long> votesModel = new PropertyModel<Long>(designItem.getModelObject(), "voteCount");
-				designItem.add(new WebMarkupContainer("votes.bar").add(new VotesBarBehavior(votesModel)));
+				designItem.add(new WebMarkupContainer("votes.bar").add(new VotesBarBehavior(votesModel)).setVisible(votesModel.getObject() > 0));
 				designItem.add(new Label("votes.number", votesModel));
 			}
 		});
@@ -90,6 +90,7 @@ public class StatisticsPage extends TemplatePage implements AuthenticatedWebPage
 					}
 				}
 			}, " ");
+			
 		}
 
 	}
