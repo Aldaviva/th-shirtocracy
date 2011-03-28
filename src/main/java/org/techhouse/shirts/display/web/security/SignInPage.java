@@ -9,6 +9,7 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.util.value.ValueMap;
+import org.techhouse.shirts.display.web.behaviors.InlineJavascript;
 import org.techhouse.shirts.display.web.behaviors.PlaceholderBehavior;
 import org.techhouse.shirts.display.web.behaviors.SetCssClassToWicketIdBehavior;
 import org.techhouse.shirts.display.web.pages.BasePage;
@@ -44,6 +45,8 @@ public class SignInPage extends BasePage {
 			hint.setVisible(false);
 			hint.add(new SetCssClassToWicketIdBehavior());
 			add(hint);
+			
+			add(new InlineJavascript("(function(){ var form = $(document.forms[0]); form.on('submit', function(event, target){ ['username', 'password'].each(function(x){ form[x].writeAttribute('readonly', true).blur(); }); }); })();"));
 		}
 
 		@Override
