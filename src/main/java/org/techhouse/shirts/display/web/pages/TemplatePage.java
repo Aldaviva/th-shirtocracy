@@ -60,7 +60,6 @@ public abstract class TemplatePage extends BasePage {
 			@Override
 			public void onClick() {
 				WicketSession.get().signOut();
-				setResponsePage(WicketApplication.get().getSignInPageClass());
 			}
 		});
 
@@ -73,7 +72,7 @@ public abstract class TemplatePage extends BasePage {
 			@Override
 			public String getObject() {
 				if (deadlineService.isDeadlineSet()) {
-					return deadlineService.getDeadline().withZone(WicketApplication.get().getDefaultDateTimeZone()).toString("EEEE, MMMM d, YYYY, 'at' h:mm a z");
+					return deadlineService.getDeadline().withZone(WicketApplication.get().getDefaultDateTimeZone()).toString(getString("format.deadline"));
 				} else {
 					return "none";
 			}

@@ -480,14 +480,30 @@
 			position: absolute;
 			top: 0;
 			right: 0;
+			border: 1px dotted @colors_bluegray;
+			#border>.only(bottom, left);
+			color: @colors_blue;
+			cursor: pointer;
+			//font-family: "Univers Condensed";
+			#font>.size(10px);
+			padding: 6px;
+			background: none;
 		}
 		
 		.info {
 			float: left;
 			width: 200px;
 			
+			.artist, .year {
+				//color: @colors_bluegray;
+				#font>.size(18px);
+				//font-style: italic;
+				//font-weight: bold;
+			}
+			
 			p {
-				margin-top: @size_designform_fieldGap;
+				margin-top: 19px;
+				#font>.size(15px);
 			}
 		}
 	}	

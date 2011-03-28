@@ -60,11 +60,9 @@ public class WicketApplication extends AuthenticatedWebApplication {
 			getSecuritySettings().setAuthorizationStrategy(new InterfaceAuthorizationStrategy(deadlineService));
 		}
 
-		if (/* /!isDevelopment()/ */true/**/) {
-			byte[] secretKeyBytes = Sha512DigestUtils.shaHex("omarh4ste3th" + getClass().getName()).getBytes();
-			String secretKey = new String(secretKeyBytes, secretKeyBytes.length - 17, 16);
-			getSecuritySettings().setCryptFactory(new CachingSunJceCryptFactory(secretKey));
-		}
+		byte[] secretKeyBytes = Sha512DigestUtils.shaHex("omarh4ste3th" + getClass().getName()).getBytes();
+		String secretKey = new String(secretKeyBytes, secretKeyBytes.length - 17, 16);
+		getSecuritySettings().setCryptFactory(new CachingSunJceCryptFactory(secretKey));
 	}
 
 	@Override
