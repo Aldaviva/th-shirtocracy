@@ -26,7 +26,7 @@ public class ConfigurationPage extends TemplatePage implements AdminPage {
 
 			@Override
 			protected Configuration load() {
-				return Configuration.get();
+				return Configuration.getConfiguration();
 			}
 		};
 

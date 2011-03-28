@@ -19,7 +19,7 @@ public class Configuration implements Serializable {
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime deadline;
 
-	public static Configuration get() {
+	public static Configuration getConfiguration() {
 		List<Configuration> entries = findConfigurationEntries(0, 1);
 		if (entries.isEmpty()) {
 			return new Configuration();

@@ -59,4 +59,12 @@ privileged aspect Design_Roo_JavaBean {
         this.members = members;
     }
     
+    public String Design.getNote() {
+        return this.note;
+    }
+    
+    public void Design.setNote(String note) {
+        this.note = note;
+    }
+    
 }

@@ -9,12 +9,15 @@ privileged aspect Design_Roo_ToString {
     
     public String Design.toString() {
         StringBuilder sb = new StringBuilder();
+        sb.append("VoteCount: ").append(getVoteCount()).append(", ");
+        sb.append("DesignWithMostVotes: ").append(getDesignWithMostVotes()).append(", ");
         sb.append("Name: ").append(getName()).append(", ");
         sb.append("Thumbnail: ").append(getThumbnail()).append(", ");
         sb.append("Photograph: ").append(getPhotograph()).append(", ");
         sb.append("Artist: ").append(getArtist()).append(", ");
         sb.append("Year: ").append(getYear()).append(", ");
-        sb.append("Members: ").append(getMembers() == null ? "null" : getMembers().size());
+        sb.append("Members: ").append(getMembers() == null ? "null" : getMembers().size()).append(", ");
+        sb.append("Note: ").append(getNote());
         return sb.toString();
     }
     

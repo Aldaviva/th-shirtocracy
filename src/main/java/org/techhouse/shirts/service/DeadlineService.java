@@ -16,7 +16,7 @@ public class DeadlineService {
 	}
 
 	public DateTime getDeadline() {
-		return Configuration.get().getDeadline();
+		return Configuration.getConfiguration().getDeadline();
 	}
 	
 	public boolean isDeadlineSet(){

@@ -4,6 +4,7 @@ import java.net.URL;
 
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.CompoundPropertyModel;
@@ -83,6 +84,12 @@ public class DesignEditPage extends TemplatePage implements AdminPage {
 				new TextField<URL>("photograph")
 				.add(new PlaceholderBehavior())
 				.add(new SetCssClassToWicketIdBehavior())
+		);
+		
+		form.add(
+				new TextArea<String>("note")
+//				.add(new PlaceholderBehavior())
+//				.add(new SetCssClassToWicketIdBehavior())
 		);
 		
 		form.add(

@@ -1,13 +1,9 @@
 package org.techhouse.shirts.display.web.pages;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -17,7 +13,6 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
-import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
@@ -64,7 +59,7 @@ public class BallotPage extends TemplatePage implements DeadlinePage {
 
 			@Override
 			protected List<Design> load() {
-				return Design.findAllDesigns(new QueryParam().setSort(Arrays.asList(new SortParam("year", false), new SortParam("name", true))));
+				return Design.findAllDesigns(new QueryParam().setSort(Arrays.asList(/*new SortParam("year", false),*/ new SortParam("name", true))));
 			}
 		};
 		
@@ -103,7 +98,7 @@ public class BallotPage extends TemplatePage implements DeadlinePage {
 				
 				item.add(new Image("thumbnail").add(new AttributeModifier("src", new PropertyModel<URL>(item.getModel(), "thumbnail"))));
 				item.add(new Label("name").add(new SetCssClassToWicketIdBehavior()));
-				item.add(new Label("artistAndYear", new AbstractReadOnlyModel<String>() {
+				/*item.add(new Label("artistAndYear", new AbstractReadOnlyModel<String>() {
 
 					private static final long serialVersionUID = 1L;
 					private final Set<Object> nullInACollection = Collections.singleton(null);
@@ -116,7 +111,7 @@ public class BallotPage extends TemplatePage implements DeadlinePage {
 						split.removeAll(nullInACollection);
 						return StringUtils.join(split, ", ");
 					}
-				}).add(new SetCssClassToWicketIdBehavior()));
+				}).add(new SetCssClassToWicketIdBehavior()));*/
 				
 				item.add(new AjaxLink<Void>("detailsButton") {
 					private static final long serialVersionUID = 1L;

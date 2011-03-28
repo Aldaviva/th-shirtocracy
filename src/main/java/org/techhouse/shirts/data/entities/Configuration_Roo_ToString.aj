@@ -9,6 +9,7 @@ privileged aspect Configuration_Roo_ToString {
     
     public String Configuration.toString() {
         StringBuilder sb = new StringBuilder();
+        sb.append("Configuration: ").append(getConfiguration()).append(", ");
         sb.append("Deadline: ").append(getDeadline());
         return sb.toString();
     }
