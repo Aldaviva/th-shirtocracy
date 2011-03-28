@@ -422,6 +422,11 @@
 			margin-top: @size_signinform_aroundInputGap;
 		}
 		
+		input[type=submit] {
+			visibility: hidden;
+			position: absolute;
+		}
+		
 		&.failed {
 			input[type=text], input[type=password] {
 				border-color: @colors_red !important;
