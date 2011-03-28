@@ -24,7 +24,7 @@ public class StatisticsPage extends TemplatePage implements AuthenticatedWebPage
 
 		@Override
 		protected List<Design> load() {
-			return Design.findAllDesigns(new QueryParam().addSort(new SortParam("name", true)));
+			return Design.findAllDesigns(new QueryParam().addSort(new SortParam("members.size", false)).addSort(new SortParam("name", true)));
 		}
 	};
 
